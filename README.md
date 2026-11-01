@@ -26,7 +26,13 @@ Keine Abhängigkeiten, kein Build-Schritt: nur HTML, CSS, JavaScript-Module und 
 | `sw.js`, `manifest.webmanifest` | Offline-Betrieb und „Zum Startbildschirm hinzufügen“ |
 | `test/` | Tests mit `node --test` |
 
-Neue Version veröffentlichen: in `sw.js` die `VERSION` hochzählen, damit Handys die neuen Dateien holen.
+## Online
+
+Läuft auf GitHub Pages: https://linabrenner.github.io/pulli-werkstatt/
+
+Neue Version veröffentlichen:
+1. In `sw.js` die `VERSION` hochzählen (z. B. `v2`), damit Handys die neuen Dateien holen.
+2. `npm test`, committen, `git push`. GitHub baut die Seite in 1–2 Minuten neu.
 
 ## Stand
 
