@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pulli-app",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/server.js"],
+      "port": 8080
+    }
+  ]
+}

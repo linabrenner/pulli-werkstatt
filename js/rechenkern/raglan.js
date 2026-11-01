@@ -4,6 +4,7 @@ import { runden, gerade, proCm, lineSum, formrunden, verteilenRund, abnahmeText,
 import { fertigmasse, easeKontrolle } from "./masse.js";
 
 const finde = (liste, id) => liste.find((x) => x.id === id);
+const mm = (x) => `${String(x).replace(".", ",")} mm`;
 
 /** Kandidat in der Nähe von ziel, der die Bedingung erfüllt; bei Gleichstand der größere. */
 function naechster(ziel, ok, spielraum = 3) {
@@ -144,13 +145,13 @@ export function berechneRaglan(daten, e) {
   const s = [];
   const add = (x) => s.push({ id: `s${s.length + 1}`, ...x });
   add({ abschnitt: "Halsbündchen", titel: "Anschlagen",
-    anweisung: `Mit ${nadelB} mm ${H} M im verdrehten Kreuzanschlag anschlagen und zur Runde schließen, ohne die Maschen zu verdrehen. Andersfarbigen MM für den Rundenbeginn setzen (= hintere Mitte).`,
+    anweisung: `Mit ${mm(nadelB)} ${H} M im verdrehten Kreuzanschlag anschlagen und zur Runde schließen, ohne die Maschen zu verdrehen. Andersfarbigen MM für den Rundenbeginn setzen (= hintere Mitte).`,
     techniken: ["verdrehterKreuzanschlag", "rundstricken", "markierer"], maschen: H });
   const halsRd = runden(halsH * r);
   add({ abschnitt: "Halsbündchen", titel: "Rippen",
     anweisung: `${halsRd} Rd 1×1-Rippen: *1 M re, 1 M li* wdh. In der letzten Rd die Raglan-MM setzen: ${B0 / 2} M, MM, ${A0} M, MM, ${B0} M, MM, ${A0} M, MM, ${B0 / 2} M.`,
     techniken: ["rechteMasche", "linkeMasche", "markierer"], zaehlen: halsRd, maschen: H });
-  add({ abschnitt: "Halsbündchen", titel: "Nadel wechseln", anweisung: `Zur Nadel ${e.nadelMm} mm wechseln.`, maschen: H });
+  add({ abschnitt: "Halsbündchen", titel: "Nadel wechseln", anweisung: `Zur Nadel ${mm(e.nadelMm)} wechseln.`, maschen: H });
 
   if (paare > 0) {
     const zeilen = [];
@@ -165,17 +166,17 @@ export function berechneRaglan(daten, e) {
   }
 
   const passeRunden = [];
-  let mm = H;
+  let summe = H;
   for (let rd = 1; rd <= Y; rd++) {
     const k = zunK.has(rd), a = zunA.has(rd);
-    mm += (k ? 4 : 0) + (a ? 4 : 0);
+    summe += (k ? 4 : 0) + (a ? 4 : 0);
     const text = k && a ? "Zunahmerunde Körper und Ärmel (+8 M)" : k ? "Zunahmerunde nur Körper (+4 M)" : a ? "Zunahmerunde nur Ärmel (+4 M)" : "Runde ohne Zunahme";
-    passeRunden.push({ nr: rd, text, maschen: mm, zunahme: k || a });
+    passeRunden.push({ nr: rd, text, maschen: summe, zunahme: k || a });
   }
   add({ abschnitt: "Passe", titel: `Raglan-Zunahmen (${Y} Rd)`,
     anweisung: `Körper: an jedem der 4 MM auf der Seite von Rücken bzw. Vorderteil zunehmen, vor dem MM M1R, nach dem MM M1L. Ärmel: nach dem ersten Ärmel-MM M1L, vor dem zweiten M1R.\nKörper: ${planText(planK)}.\nÄrmel: ${planText(planA)}.`,
-    techniken: ["m1r", "m1l", "markierer"], runden: passeRunden, maschen: mm,
-    kontrolle: `Rücken ${FB}, Vorderteil ${FB}, Ärmel je ${aZiel} = ${mm} M` });
+    techniken: ["m1r", "m1l", "markierer"], runden: passeRunden, maschen: summe,
+    kontrolle: `Rücken ${FB}, Vorderteil ${FB}, Ärmel je ${aZiel} = ${summe} M` });
 
   add({ abschnitt: "Teilung", titel: "Körper und Ärmel trennen",
     anweisung: `Ärmelmaschen (je ${aZiel}) auf Restgarn stilllegen und unter jeder Achsel ${U} M im Aufstrick-Anschlag neu anschlagen.`,
@@ -186,7 +187,7 @@ export function berechneRaglan(daten, e) {
     techniken: ["rechteMasche"], zaehlen: koerperGlattRd, maschen: KK });
   const saumAbn = KK - saumM;
   add({ abschnitt: "Körper", titel: "Saumbündchen",
-    anweisung: `Zur Nadel ${nadelB} mm wechseln.${saumAbn > 0 ? ` 1 Rd: ${abnahmeText(verteilenRund(KK, saumAbn))}.` : ""} ${runden(saumH * r)} Rd 1×1-Rippen über ${saumM} M, dann im Rippenmuster abketten.`,
+    anweisung: `Zur Nadel ${mm(nadelB)} wechseln.${saumAbn > 0 ? ` 1 Rd: ${abnahmeText(verteilenRund(KK, saumAbn))}.` : ""} ${runden(saumH * r)} Rd 1×1-Rippen über ${saumM} M, dann im Rippenmuster abketten.`,
     techniken: ["rechteMasche", "linkeMasche", "abkettenImMuster", ...(saumAbn > 0 ? ["k2tog"] : [])], zaehlen: runden(saumH * r), maschen: saumM });
 
   const abRunden = new Set(formrunden(planAb));
@@ -198,14 +199,14 @@ export function berechneRaglan(daten, e) {
     aermelRunden.push({ nr: rd, text: ab ? "Abnahmerunde: 1 M re, ssk, re bis 3 M vor Rundenende, 2 M re zus, 1 M re (−2 M)" : "Runde ohne Abnahme", maschen: am, zunahme: ab });
   }
   add({ abschnitt: "Ärmel (2×)", titel: "Maschen aufnehmen",
-    anweisung: `${aZiel} stillgelegte M auf ${e.nadelMm} mm nehmen, aus dem Achselanschlag ${U} M aufnehmen, Rundenbeginn in der Achselmitte.`,
+    anweisung: `${aZiel} stillgelegte M auf ${mm(e.nadelMm)} nehmen, aus dem Achselanschlag ${U} M aufnehmen, Rundenbeginn in der Achselmitte.`,
     techniken: ["maschenAufnehmen", "magicLoop"], maschen: AA });
   add({ abschnitt: "Ärmel (2×)", titel: "Ärmel stricken",
     anweisung: `${geradeObenRd} Rd gerade, dann abnehmen: ${planText(planAb)}.`,
     techniken: ["ssk", "k2tog"], runden: aermelRunden, maschen: mUnten,
     kontrolle: `${mUnten} M, Ärmel misst ${(geradeOben + rAb / r).toFixed(0)} cm` });
   add({ abschnitt: "Ärmel (2×)", titel: "Manschette",
-    anweisung: `Zur Nadel ${nadelB} mm wechseln.${mUnten > manschM ? ` 1 Rd: ${abnahmeText(manschSegmente)}.` : ""} ${runden(manschH * r)} Rd 1×1-Rippen über ${manschM} M, im Rippenmuster abketten. Zweiten Ärmel genauso.`,
+    anweisung: `Zur Nadel ${mm(nadelB)} wechseln.${mUnten > manschM ? ` 1 Rd: ${abnahmeText(manschSegmente)}.` : ""} ${runden(manschH * r)} Rd 1×1-Rippen über ${manschM} M, im Rippenmuster abketten. Zweiten Ärmel genauso.`,
     techniken: ["k2tog", "abkettenImMuster"], zaehlen: runden(manschH * r), maschen: manschM });
   add({ abschnitt: "Fertigstellen", titel: "Fertigstellen",
     anweisung: "Löcher an den Achseln schließen, Fäden vernähen, waschen und auf Fertigmaß spannen.",
