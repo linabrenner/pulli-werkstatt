@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "beschreibung": "Nadelstärken-Umrechnung, Nadeltypen und Regeln zur Nadelwahl",
+    "quelle": "01 Material und Werkzeug",
+    "stand": "2026-11-01",
+    "hinweise": [
+      "Intern nur mm speichern, US/UK nur anzeigen.",
+      "In der Recherche belegt sind nur 2 mm = US 0 = UK 14, 2,75 mm = US 2 = UK 12, 4 mm = US 6 = UK 8. Die übrigen Werte sind die gängige Umrechnung und sollten gegen needle-sizes.json aus stitchmath-core (MIT) geprüft werden.",
+      "Durchmesser weichen je Hersteller leicht ab."
+    ]
+  },
+  "staerken": [
+    { "mm": 2.0, "us": "0", "uk": "14", "belegt": true },
+    { "mm": 2.25, "us": "1", "uk": "13" },
+    { "mm": 2.5, "us": null, "uk": null },
+    { "mm": 2.75, "us": "2", "uk": "12", "belegt": true },
+    { "mm": 3.0, "us": null, "uk": "11" },
+    { "mm": 3.25, "us": "3", "uk": "10" },
+    { "mm": 3.5, "us": "4", "uk": null },
+    { "mm": 3.75, "us": "5", "uk": "9" },
+    { "mm": 4.0, "us": "6", "uk": "8", "belegt": true },
+    { "mm": 4.5, "us": "7", "uk": "7" },
+    { "mm": 5.0, "us": "8", "uk": "6" },
+    { "mm": 5.5, "us": "9", "uk": "5" },
+    { "mm": 6.0, "us": "10", "uk": "4" },
+    { "mm": 6.5, "us": "10.5", "uk": "3" },
+    { "mm": 7.0, "us": null, "uk": "2" },
+    { "mm": 8.0, "us": "11", "uk": "0" },
+    { "mm": 9.0, "us": "13", "uk": "00" },
+    { "mm": 10.0, "us": "15", "uk": "000" },
+    { "mm": 12.75, "us": "17", "uk": null },
+    { "mm": 15.0, "us": "19", "uk": null }
+  ],
+  "typen": [
+    { "id": "rundnadel", "name": "Rundnadel", "einsatz": "Rundstricken und flach stricken; Seil kürzer als der Umfang des Strickstücks" },
+    { "id": "nadelspiel", "name": "Nadelspiel (4–5 Nadeln)", "einsatz": "kleine Umfänge: Ärmel, Bündchen" },
+    { "id": "magicloop", "name": "Magic Loop (lange Rundnadel)", "einsatz": "kleine Umfänge mit einer langen Rundnadel, Seil ab ca. 80 cm" },
+    { "id": "gerade", "name": "Gerade Nadeln (Jackennadeln)", "einsatz": "flach gestrickte Teile, die später genäht werden" }
+  ],
+  "rundnadelLaengen": {
+    "_hinweis": "Seillänge in cm, abhängig vom Umfang des Strickstücks. Die Grenzwerte für den Umfang sind eigene Ableitung aus der Faustregel 'Seil kürzer als Umfang'.",
+    "werte": [
+      { "seilCm": 40, "einsatz": "Ärmel, Kragen, Halsbündchen", "umfangMinCm": 45 },
+      { "seilCm": 60, "einsatz": "Kinderpullover, enge Damenoberteile", "umfangMinCm": 65 },
+      { "seilCm": 80, "einsatz": "Körper, große Größen, Magic Loop", "umfangMinCm": 85 },
+      { "seilCm": 100, "einsatz": "Körper sehr großer Größen", "umfangMinCm": 105 }
+    ]
+  },
+  "regeln": [
+    { "id": "buendchen-nadel", "regel": "Bündchennadel = Körpernadel minus 1–2 Nadelstärken", "standardDifferenzStufen": 2, "quelle": "06 Details und Formgebung" },
+    { "id": "kleiner-umfang", "regel": "Umfang kleiner als kürzestes Seil (ca. 45 cm): Nadelspiel oder Magic Loop vorschlagen" }
+  ]
+}

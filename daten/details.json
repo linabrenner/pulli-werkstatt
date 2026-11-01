@@ -1,0 +1,251 @@
+{
+  "_meta": {
+    "beschreibung": "Halsausschnitte, Bündchen, Ärmelformen, verkürzte Reihen, Taillierung, Maschenprobe-Regeln und Garnbedarf",
+    "quelle": "06 Details und Formgebung, 03 Maschenprobe und Umrechnung",
+    "stand": "2026-11-01"
+  },
+  "halsausschnitte": [
+    {
+      "id": "rundhals",
+      "name": "Rundhals",
+      "status": "mvp",
+      "parameter": {
+        "halsbreiteCm": {
+          "standard": 19,
+          "unsicher": true,
+          "hinweis": "Beispielwert MDK; keine Standardwerte je Größe gefunden."
+        },
+        "vorderhalstiefeCm": {
+          "standard": 10,
+          "unsicher": true
+        },
+        "rueckenhalstiefeCm": {
+          "standard": 3,
+          "unsicher": true
+        }
+      },
+      "rechnung": [
+        "Halsbreite_M = Halsbreite_cm * m",
+        "Abnahmen_je_Seite = (Halsbreite_M - Mitte_M) / 2",
+        "Formreihen = Halstiefe_cm * r - Abkettreihen",
+        "Rate = Formreihen / Abnahmen_je_Seite"
+      ],
+      "hinweis": "Erst schnell, dann langsamer abnehmen, damit eine Rundung entsteht."
+    },
+    {
+      "id": "vAusschnitt",
+      "name": "V-Ausschnitt",
+      "status": "spaeter",
+      "rechnung": [
+        "Rate = (V-Tiefe_cm * r) / (Halsbreite_cm * m / 2)"
+      ],
+      "hinweis": "Gleichmäßige Rate bis zur Schulter. Für die Spitze eine Mittelmasche (ungerade Maschenzahl) oder mittig teilen."
+    },
+    {
+      "id": "rollkragen",
+      "name": "Rollkragen",
+      "status": "spaeter",
+      "parameter": {
+        "hoeheCm": {
+          "standard": 10
+        }
+      },
+      "hinweis": "Maschen rund um den Ausschnitt aufnehmen und in Rippen stricken; eigene Rippen-Maschenprobe; Kopfdurchlass prüfen."
+    },
+    {
+      "id": "uBoot",
+      "name": "U-Boot-Ausschnitt",
+      "status": "luecke",
+      "hinweis": "Die '10/25-Regel' aus MDK Teil 1 konnte nicht gelesen werden."
+    }
+  ],
+  "buendchen": {
+    "nadelDuennerStufen": {
+      "min": 1,
+      "max": 2,
+      "standard": 2
+    },
+    "maschenReduktion": {
+      "min": 0,
+      "max": 0.1,
+      "standard": 0.1,
+      "hinweis": "Bündchen mit ca. 10 % weniger Maschen, dann auf Körpermaschen zunehmen; alternativ gleiche Maschenzahl mit dünnerer Nadel."
+    },
+    "formel": "M_Bündchen = rund_Rapport(M_Körper * (1 - k))",
+    "hoeheCm": {
+      "saum": {
+        "standard": 5,
+        "unsicher": true
+      },
+      "aermel": {
+        "standard": 5,
+        "unsicher": true
+      },
+      "hals": {
+        "standard": 2.5,
+        "unsicher": true
+      }
+    },
+    "_hinweisHoehe": "Bündchenhöhen sind eigene Startwerte, nicht recherchiert.",
+    "arten": [
+      "rippen1x1",
+      "rippen2x2",
+      "krausRechts",
+      "rollrand"
+    ],
+    "regelnSaum": [
+      {
+        "id": "saumOhneReduktion",
+        "regel": "Saumbündchen ohne Maschenreduktion (k = 0), wenn Hüfte (Körper) >= Brust (Körper) - 5 cm",
+        "herkunft": "ableitung",
+        "quelle": "11 Testpulli Raglan",
+        "hinweis": "Sonst zieht das Bündchen an der Hüfte stark ein. Grenze 5 cm ist ein Startwert."
+      },
+      {
+        "id": "halsOhneReduktion",
+        "regel": "Halsbündchen top-down ohne Maschenreduktion (Kopfdurchlass)",
+        "herkunft": "ableitung",
+        "quelle": "11 Testpulli Raglan"
+      }
+    ]
+  },
+  "aermelformen": [
+    {
+      "id": "konisch",
+      "name": "Schmal zulaufend",
+      "status": "mvp",
+      "hinweis": "Von Oberarm zu Handgelenk gleichmäßig abnehmen; unter der Achsel einige cm gerade lassen."
+    },
+    {
+      "id": "gerade",
+      "name": "Gerade",
+      "status": "spaeter",
+      "hinweis": "Keine Formgebung, z. B. Drop Shoulder."
+    },
+    {
+      "id": "ballon",
+      "name": "Ballonärmel",
+      "status": "spaeter",
+      "hinweis": "Weit, am Bündchen stark gerafft (viele Abnahmen in einer Runde)."
+    }
+  ],
+  "aermellaengen": [
+    {
+      "id": "lang",
+      "name": "Lang",
+      "anteil": 1.0
+    },
+    {
+      "id": "dreiviertel",
+      "name": "¾-Arm",
+      "anteil": 0.75,
+      "unsicher": true
+    },
+    {
+      "id": "kurz",
+      "name": "Kurzarm",
+      "anteil": 0.25,
+      "unsicher": true
+    }
+  ],
+  "aermelRechnungTopDown": [
+    "M_oben = Oberarm_fertig * m",
+    "M_unten = Handgelenk_fertig * m (bzw. Bündchenmaschen)",
+    "n = (M_oben - M_unten) / 2",
+    "R = (Ärmellänge - Bündchen - gerades Stück) * r",
+    "mit Line-Sum-Formel verteilen"
+  ],
+  "aermelGeradeUnterAchselCm": {
+    "standard": 3,
+    "unsicher": true,
+    "hinweis": "'einige cm', eigener Startwert"
+  },
+  "verkuerzteReihen": {
+    "methode": "German Short Rows (Doppelmasche)",
+    "zweck": "Nackenerhöhung, damit der Pullover hinten nicht nach unten rutscht",
+    "wendungenJeSeite": {
+      "min": 4,
+      "max": 6
+    },
+    "zielErhoehungCm": {
+      "standard": 2.5
+    },
+    "formel": "n_Paare = round(h * r / 2)",
+    "verteilung": "Wendestellen symmetrisch zur hinteren Mitte, zwischen vorderer Raglanlinie und ca. 1/3 der Rückenmaschen, mit Verteil-Algorithmus"
+  },
+  "taillierung": {
+    "abnahmenProFormrunde": 4,
+    "rechnung": [
+      "Abnahmerunden = (M_hüfte - M_taille) / 4",
+      "Zunahmerunden = (M_brust - M_taille) / 4",
+      "Höhe_Abnahme = (Taillenhöhe - Bündchen - gerades Stück) * r"
+    ]
+  },
+  "maschenprobe": {
+    "probeGroesseCmMin": 12,
+    "messflaecheCm": 10,
+    "regeln": [
+      "Im späteren Muster und in der späteren Strickweise stricken (rund vs. flach).",
+      "Waschen und spannen wie das fertige Stück, ganz trocknen lassen, dann messen.",
+      "Vor und nach dem Waschen messen."
+    ],
+    "toleranzMaschenProzent": {
+      "standard": 3,
+      "unsicher": true,
+      "hinweis": "Eigener Startwert: Darüber Nadelwechsel vorschlagen."
+    },
+    "nadelwechselMm": 0.5
+  },
+  "maschenAufnehmen": {
+    "senkrechteKante": {
+      "faustregel": "3 aus 4 Reihen (oder 2 aus 3)",
+      "formel": "Maschen pro Reihe = m / r"
+    },
+    "waagerechteKante": {
+      "verhaeltnis": 1.0
+    }
+  },
+  "rundungsregeln": [
+    {
+      "id": "rapport",
+      "regel": "Gesamtmaschen = Vielfaches des Rapports (+ Randmaschen)"
+    },
+    {
+      "id": "raglanRuecken",
+      "regel": "Rückenmaschen beim Raglan-Anschlag gerade"
+    },
+    {
+      "id": "symmetrie",
+      "regel": "Vorder- und Rückenteil gleich; Teilungen durch 2 oder 4 aufgehen lassen"
+    },
+    {
+      "id": "easeRichtung",
+      "regel": "Positive Ease: aufrunden, negative Ease: abrunden"
+    },
+    {
+      "id": "hinreihen",
+      "regel": "Formgebung nur in Hinreihen: Reihenabstände gerade"
+    }
+  ],
+  "garnbedarf": {
+    "formel": "Garn_g = (Gewicht_Probe / Fläche_Probe) * Fläche_Pullover * Reserve",
+    "reserve": 1.1,
+    "musterZuschlag": {
+      "zopf": [
+        0.1,
+        0.3
+      ],
+      "struktur": [
+        0.1,
+        0.3
+      ]
+    },
+    "hinweis": "Ohne gewogene Probe Erfahrungswerte je Garnklasse nötig (noch nicht recherchiert)."
+  },
+  "laengenRechnung": {
+    "herkunft": "ableitung",
+    "quelle": "11 Testpulli Raglan",
+    "formelTopDown": "Körper ab Achsel = Gesamtlänge hinten - Halsbündchen - Nackenerhöhung - Raglantiefe",
+    "hinweis": "Gesamtlänge wird hinten ab Nackenwirbel gemessen."
+  }
+}

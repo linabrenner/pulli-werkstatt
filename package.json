@@ -1,0 +1,12 @@
+{
+  "name": "pulli-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Persönliche Web-App, die aus einer Pulli-Idee eine durchgerechnete, interaktive Strickanleitung macht.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/",
+    "start": "node scripts/server.js",
+    "daten": "sh scripts/daten-holen.sh"
+  }
+}

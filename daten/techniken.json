@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "beschreibung": "Techniken mit Kurzerklärung, Einsatz und Schwierigkeit; Grundlage für die Technik-Hilfe im Strick-Modus",
+    "quelle": "02 Grundtechniken, 07 Anleitungs-Konventionen und Abkürzungen",
+    "stand": "2026-11-01",
+    "hinweise": [
+      "Erklärungen in eigenen Worten aus der Recherche. 'video' ist ein Platzhalter für einen Link auf ein frei verfügbares Video, noch nicht ausgesucht.",
+      "schwierigkeit nach CYC-Skill-Level 1–4 (siehe schwierigkeitsstufen).",
+      "abkuerzung verweist auf einen Schlüssel in abkuerzungen.json."
+    ]
+  },
+  "schwierigkeitsstufen": [
+    { "stufe": 1, "name": "Anfängerin", "cyc": "Beginner/Basic", "inhalt": "rechte und linke Maschen, minimale Formgebung" },
+    { "stufe": 2, "name": "Leicht", "cyc": "Easy", "inhalt": "sich wiederholende Muster, einfache Farbwechsel, einfache Formgebung" },
+    { "stufe": 3, "name": "Mittel", "cyc": "Intermediate", "inhalt": "einfache Zöpfe, einfache Intarsien, Nadelspiel, Rundstricken" },
+    { "stufe": 4, "name": "Erfahren", "cyc": "Experienced", "inhalt": "verkürzte Reihen, Fair Isle, komplexe Zöpfe, Lochmuster" }
+  ],
+  "techniken": [
+    { "id": "rechteMasche", "kategorie": "grundmasche", "name": "Rechte Masche", "abkuerzung": "re", "schwierigkeit": 1, "erklaerung": "Von vorn nach hinten in die Masche stechen, Faden holen, durchziehen. Sieht auf der Vorderseite wie ein V aus.", "video": null },
+    { "id": "linkeMasche", "kategorie": "grundmasche", "name": "Linke Masche", "abkuerzung": "li", "schwierigkeit": 1, "erklaerung": "Faden vor der Arbeit, von hinten nach vorn in die Masche stechen, Faden holen, durchziehen. Zeigt sich als waagerechter Bogen.", "video": null },
+
+    { "id": "kreuzanschlag", "kategorie": "anschlag", "name": "Kreuzanschlag", "schwierigkeit": 1, "eigenschaft": "schnell, ausreichend elastisch", "einsatz": ["standard", "buendchenBottomUp"], "erklaerung": "Der Standardanschlag: Maschen werden mit Daumen- und Zeigefingerfaden direkt auf die Nadel gelegt.", "video": null },
+    { "id": "verdrehterKreuzanschlag", "kategorie": "anschlag", "name": "Verdrehter Kreuzanschlag", "schwierigkeit": 2, "eigenschaft": "sehr elastisch", "einsatz": ["buendchen", "halsTopDown"], "erklaerung": "Variante des Kreuzanschlags mit zusätzlicher Drehung um den Daumenfaden; gibt eine besonders dehnbare Kante.", "video": null },
+    { "id": "schlauchanschlag", "kategorie": "anschlag", "name": "Italienischer Anschlag (Schlauchanschlag)", "schwierigkeit": 3, "eigenschaft": "elastisch, sehr sauberer Rand", "einsatz": ["buendchen1x1"], "nurFuer": ["rippen1x1"], "erklaerung": "Erzeugt einen runden, dehnbaren Rand, der nahtlos in 1×1-Rippen übergeht. Bei anderen Rippen wirkt er schief.", "video": null },
+    { "id": "aufstrickAnschlag", "kategorie": "anschlag", "name": "Aufstrick-Anschlag", "abkuerzung": "anschl", "schwierigkeit": 1, "eigenschaft": "fest", "einsatz": ["achsel", "mitteDerArbeit"], "erklaerung": "Neue Maschen werden zwischen die letzten zwei Maschen gestrickt und auf die Nadel gesetzt. Gut für Maschen mitten in der Arbeit.", "video": null },
+    { "id": "einfacherAnschlag", "kategorie": "anschlag", "name": "Einfacher Maschenanschlag (Schlingen)", "schwierigkeit": 1, "eigenschaft": "schnell, unsauber bei vielen Maschen", "einsatz": ["achsel"], "erklaerung": "Faden als Schlinge um den Daumen legen und auf die Nadel heben. Nur für wenige Maschen.", "unsicher": true, "video": null },
+    { "id": "provisorischerAnschlag", "kategorie": "anschlag", "name": "Provisorischer Anschlag", "schwierigkeit": 3, "einsatz": ["halsTopDownOffen"], "erklaerung": "Anschlag mit Hilfsfaden, der später entfernt wird, um die Maschen in Gegenrichtung weiterzustricken.", "video": null },
+
+    { "id": "abkettenKlassisch", "kategorie": "abketten", "name": "Klassisch abketten", "abkuerzung": "abk", "schwierigkeit": 1, "eigenschaft": "am festesten", "einsatz": ["schulter", "kanten"], "erklaerung": "Zwei Maschen stricken, die erste über die zweite ziehen, wiederholen.", "video": null },
+    { "id": "abkettenImMuster", "kategorie": "abketten", "name": "Im Rippenmuster abketten", "schwierigkeit": 1, "eigenschaft": "elastischer", "einsatz": ["buendchenTopDown", "kragen"], "erklaerung": "Wie klassisch, aber jede Masche so stricken, wie sie erscheint (rechts oder links).", "video": null },
+    { "id": "abkettenDehnbar", "kategorie": "abketten", "name": "Dehnbar abketten", "schwierigkeit": 2, "eigenschaft": "sehr elastisch", "einsatz": ["halsbuendchen", "buendchenTopDown"], "erklaerung": "Abkettmethode mit zusätzlichem Spielraum, damit die Kante so dehnbar ist wie die Rippen.", "unsicher": true, "video": null },
+
+    { "id": "m1r", "kategorie": "zunahme", "name": "Aus dem Querfaden zunehmen, rechtsgeneigt", "abkuerzung": "M1R", "neigung": "rechts", "schwierigkeit": 2, "einsatz": ["vorRaglanmarker"], "erklaerung": "Querfaden zwischen zwei Maschen von hinten aufheben und von vorn verschränkt abstricken. Fast unsichtbar, neigt nach rechts.", "video": null },
+    { "id": "m1l", "kategorie": "zunahme", "name": "Aus dem Querfaden zunehmen, linksgeneigt", "abkuerzung": "M1L", "neigung": "links", "schwierigkeit": 2, "einsatz": ["nachRaglanmarker", "aermel"], "erklaerung": "Querfaden von vorn aufheben und hinten verschränkt abstricken. Fast unsichtbar, neigt nach links.", "video": null },
+    { "id": "lifted", "kategorie": "zunahme", "name": "Herausgehobene Zunahme", "abkuerzung": "RLI/LLI", "schwierigkeit": 2, "einsatz": ["dezenteFormgebung"], "erklaerung": "Aus der Masche darunter eine neue Masche herausstricken. Sehr unauffällig, braucht mindestens eine Reihe Abstand.", "hinweis": "Neigung umgekehrt zur Bezeichnung, wenn als Ersatz für M1L/M1R verwendet.", "video": null },
+    { "id": "kfb", "kategorie": "zunahme", "name": "Aus einer Masche zwei stricken", "abkuerzung": "kfb", "schwierigkeit": 1, "einsatz": ["einfacheZunahme"], "erklaerung": "Masche rechts stricken, nicht von der Nadel nehmen, dann ins hintere Maschenglied noch einmal stricken. Gibt einen kleinen Querbalken.", "video": null },
+    { "id": "umschlag", "kategorie": "zunahme", "name": "Umschlag", "abkuerzung": "U", "schwierigkeit": 1, "einsatz": ["lochmuster", "zierRaglan"], "erklaerung": "Faden einmal um die rechte Nadel legen. Erzeugt bewusst ein kleines Loch.", "video": null },
+
+    { "id": "k2tog", "kategorie": "abnahme", "name": "2 Maschen rechts zusammenstricken", "abkuerzung": "2Mrezus", "neigung": "rechts", "schwierigkeit": 1, "einsatz": ["linkeKante", "vorMarker"], "erklaerung": "In zwei Maschen gleichzeitig wie zum Rechtsstricken einstechen und zusammen abstricken. Neigt nach rechts.", "video": null },
+    { "id": "ssk", "kategorie": "abnahme", "name": "Überzogene Abnahme", "abkuerzung": "uezAbn", "neigung": "links", "schwierigkeit": 2, "einsatz": ["rechteKante", "nachMarker"], "erklaerung": "Zwei Maschen einzeln wie zum Rechtsstricken abheben, zurück auf die linke Nadel und hinten verschränkt zusammenstricken (oder 1 M abheben, 1 M re, abgehobene M überziehen). Neigt nach links.", "video": null },
+    { "id": "p2tog", "kategorie": "abnahme", "name": "2 Maschen links zusammenstricken", "abkuerzung": "2Mlizus", "schwierigkeit": 1, "einsatz": ["rueckreihen"], "erklaerung": "Zwei Maschen wie zum Linksstricken zusammen abstricken.", "video": null },
+    { "id": "cdd", "kategorie": "abnahme", "name": "Doppelte Abnahme mittig", "abkuerzung": "3Mzus", "neigung": "senkrecht", "schwierigkeit": 2, "einsatz": ["vSpitze", "lochmuster"], "erklaerung": "Zwei Maschen zusammen abheben, eine stricken, die abgehobenen überziehen. Die mittlere Masche liegt oben.", "unsicher": true, "video": null },
+
+    { "id": "maschenAufnehmen", "kategorie": "formgebung", "name": "Maschen aufnehmen", "abkuerzung": "Maufn", "schwierigkeit": 2, "einsatz": ["kragen", "blenden"], "erklaerung": "Aus dem Rand eines fertigen Teils neue Maschen herausholen. An Reihenkanten etwa 3 aus 4 Reihen, an Maschenkanten 1:1.", "video": null },
+    { "id": "verkuerzteReihen", "kategorie": "formgebung", "name": "Verkürzte Reihen (Doppelmasche)", "abkuerzung": "DM", "schwierigkeit": 4, "einsatz": ["nackenerhoehung", "brustabnaeher"], "erklaerung": "Mitten in der Reihe wenden. Die erste Masche mit dem Faden vorn abheben und den Faden nach hinten ziehen, so entsteht eine Doppelmasche mit zwei Beinchen, die später als eine Masche gestrickt wird.", "video": null },
+    { "id": "maschenStilllegen", "kategorie": "formgebung", "name": "Maschen stilllegen", "schwierigkeit": 1, "einsatz": ["aermelTeilung"], "erklaerung": "Maschen auf einen Hilfsfaden oder Maschenraffer schieben und später weiterstricken.", "video": null },
+    { "id": "markierer", "kategorie": "formgebung", "name": "Maschenmarkierer setzen und abheben", "abkuerzung": "MM", "schwierigkeit": 1, "einsatz": ["raglan", "rundenbeginn"], "erklaerung": "Kleinen Ring zwischen zwei Maschen auf die Nadel setzen und in jeder Runde einfach weiterschieben.", "video": null },
+    { "id": "rundstricken", "kategorie": "grundmasche", "name": "In Runden stricken", "abkuerzung": "Rd", "schwierigkeit": 3, "einsatz": ["nahtlos"], "erklaerung": "Maschen zur Runde schließen, ohne sie zu verdrehen, und immer auf der Vorderseite weiterstricken.", "video": null },
+    { "id": "magicLoop", "kategorie": "werkzeug", "name": "Magic Loop", "schwierigkeit": 3, "einsatz": ["aermel", "kleineUmfaenge"], "erklaerung": "Kleine Umfänge mit einer langen Rundnadel stricken: Das Seil wird in der Mitte als Schlaufe herausgezogen.", "video": null },
+    { "id": "spannfaeden", "kategorie": "muster", "name": "Spannfäden einweben", "schwierigkeit": 4, "einsatz": ["fairIsle"], "erklaerung": "Lange Fäden auf der Rückseite alle ca. 2,5 cm mit dem anderen Faden kreuzen, damit keine Schlaufen entstehen.", "video": null },
+    { "id": "zopfKreuzen", "kategorie": "muster", "name": "Zopf kreuzen", "schwierigkeit": 3, "einsatz": ["zopf"], "erklaerung": "Einige Maschen auf eine Hilfsnadel vor oder hinter die Arbeit legen, die nächsten stricken, dann die Maschen der Hilfsnadel.", "video": null },
+
+    { "id": "spannen", "kategorie": "fertigstellen", "name": "Waschen und Spannen", "schwierigkeit": 1, "erklaerung": "Strickstück nach Pflegeangabe waschen, auf Fertigmaß flach auslegen und trocknen lassen.", "video": null },
+    { "id": "faedenVernaehen", "kategorie": "fertigstellen", "name": "Fäden vernähen", "schwierigkeit": 1, "erklaerung": "Fadenenden mit der Wollnadel auf der Rückseite durch einige Maschen ziehen und abschneiden.", "video": null }
+  ],
+  "einsatzregeln": [
+    { "situation": "buendchenAnschlag", "technik": "verdrehterKreuzanschlag", "alternativ": ["schlauchanschlag (nur 1×1)", "kreuzanschlag"] },
+    { "situation": "halsTopDown", "technik": "verdrehterKreuzanschlag", "begruendung": "Der Kopf muss durchpassen." },
+    { "situation": "achselanschlag", "technik": "aufstrickAnschlag", "alternativ": ["einfacherAnschlag"] },
+    { "situation": "buendchenAbkettenTopDown", "technik": "abkettenImMuster", "alternativ": ["abkettenDehnbar"] },
+    { "situation": "raglanZunahmeVorMarker", "technik": "m1r" },
+    { "situation": "raglanZunahmeNachMarker", "technik": "m1l" },
+    { "situation": "abnahmeRechteKante", "technik": "ssk" },
+    { "situation": "abnahmeLinkeKante", "technik": "k2tog" },
+    { "situation": "aermelAbnahmeRund", "technik": ["k2tog", "ssk"], "hinweis": "Am Rundenanfang ssk nach, am Ende k2tog vor der Unterarmmitte (eigene Zuordnung nach Symmetrieregel)." }
+  ]
+}

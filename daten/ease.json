@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "beschreibung": "Bewegungszugabe (Ease) je Passform und Messpunkt",
+    "quelle": "05 Maße, Passform und Größen",
+    "stand": "2026-11-01",
+    "einheit": "cm",
+    "formel": "Fertigmaß = Körpermaß + Ease",
+    "hinweise": [
+      "Die CYC-Werte (absolut) sind die Standardmethode der App. Die Knotions-Prozentwerte dienen nur als Plausibilitätsprüfung, denn beide Tabellen passen nicht zusammen.",
+      "Kleine Größen eher an die Untergrenze, große Größen eher an die Obergrenze.",
+      "Leichtes Gestrick braucht weniger Ease als schweres."
+    ]
+  },
+  "passformen": [
+    { "id": "sehrEng", "name": "Sehr eng", "brustCm": { "min": -10, "max": -5 }, "standardCm": -5 },
+    { "id": "eng", "name": "Eng", "brustCm": { "min": 0, "max": 0 }, "standardCm": 0 },
+    { "id": "klassisch", "name": "Klassisch", "brustCm": { "min": 5, "max": 10 }, "standardCm": 8 },
+    { "id": "locker", "name": "Locker", "brustCm": { "min": 10, "max": 15 }, "standardCm": 13 },
+    { "id": "oversized", "name": "Oversized", "brustCm": { "min": 15, "max": null }, "standardCm": 20 }
+  ],
+  "knotionsProzent": {
+    "_hinweis": "Ease in Prozent vom Brustumfang je Garngewicht. Garnklasse 3 kommt in der Quelle in 'leicht' und 'mittel' vor; hier zu 'mittel' gezählt.",
+    "unsicher": true,
+    "garnGruppen": { "leicht": [0, 1, 2], "mittel": [3, 4], "schwer": [5, 6, 7] },
+    "werte": {
+      "sehrEng": { "leicht": [-10, -5], "mittel": [-5, 0], "schwer": [0, 5] },
+      "eng": { "leicht": [0, 0], "mittel": [0, 5], "schwer": [5, 10] },
+      "klassisch": { "leicht": [10, 12], "mittel": [12, 15], "schwer": [15, 17] },
+      "locker": { "leicht": [12, 15], "mittel": [15, 17], "schwer": [17, 20] },
+      "oversized": { "leicht": [20, null], "mittel": [25, null], "schwer": [27, null] }
+    }
+  },
+  "messpunkte": {
+    "brust": { "quelle": "passformen" },
+    "huefte": { "_hinweis": "Kein eigener Standard; eigene Annahme: wie Brust.", "unsicher": true, "wieBrust": true },
+    "taille": { "_hinweis": "Nur bei Taillierung; eigene Annahme: wie Brust.", "unsicher": true, "wieBrust": true },
+    "oberarm": { "cm": { "min": 5, "max": 7.5 }, "standardCm": 6, "hinweis": "Bei oversized/Drop Shoulder entsprechend mehr." },
+    "handgelenk": { "_hinweis": "Keine Standardwerte gefunden. Eigene Annahme für den Start: Bündchen 0 bis +2 cm, Rippen ziehen zusammen.", "unsicher": true, "cm": { "min": 0, "max": 2 }, "standardCm": 1 },
+    "hals": { "_hinweis": "Keine Standardwerte gefunden. Kopfdurchlass über die Dehnung der Rippen-Probe prüfen.", "unsicher": true }
+  },
+  "abweichendeAngaben": [
+    { "quelle": "Esther's Knitting Page", "aussage": "Weite Drop-Shoulder- oder Set-in-Pullover: 15–20 cm Brustzugabe als Durchschnitt", "bewertung": "entspricht nach CYC eher locker bis oversized" }
+  ]
+}

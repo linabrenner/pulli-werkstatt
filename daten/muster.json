@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "beschreibung": "Muster-Grundtypen mit Rapport und Wirkung auf Maschenprobe und Garnbedarf",
+    "quelle": "02 Grundtechniken, 03 Maschenprobe und Umrechnung",
+    "stand": "2026-11-01"
+  },
+  "muster": [
+    { "id": "glattRechts", "name": "Glatt rechts", "status": "mvp", "rapport": { "maschen": 1, "reihen": 2 }, "schwierigkeit": 1, "anweisungRund": "jede Runde rechts", "anweisungFlach": "Hinreihe rechts, Rückreihe links", "maschenprobe": "Referenz", "hinweise": ["Rollt sich an den Kanten ein, deshalb Bündchen oder Kante nötig."] },
+    { "id": "krausRechts", "name": "Kraus rechts", "status": "spaeter", "rapport": { "maschen": 1, "reihen": 2 }, "schwierigkeit": 1, "anweisungRund": "abwechselnd 1 Runde rechts, 1 Runde links", "anweisungFlach": "jede Reihe rechts", "maschenprobe": "eigene Probe; mehr Reihen pro cm (gestaucht)", "hinweise": ["Liegt flach, gut für Kanten."] },
+    { "id": "rippen1x1", "name": "Rippen 1×1", "status": "mvp", "rapport": { "maschen": 2, "reihen": 1 }, "schwierigkeit": 1, "anweisungRund": "*1 M re, 1 M li* wiederholen", "maschenprobe": "zieht zusammen, mehr Maschen pro 10 cm (Beispiel 25 statt 23)", "einsatz": ["buendchen", "kragen"] },
+    { "id": "rippen2x2", "name": "Rippen 2×2", "status": "spaeter", "rapport": { "maschen": 4, "reihen": 1 }, "schwierigkeit": 1, "anweisungRund": "*2 M re, 2 M li* wiederholen", "maschenprobe": "zieht zusammen", "einsatz": ["buendchen", "kragen"] },
+    { "id": "struktur", "name": "Strukturmuster (z. B. Perlmuster)", "status": "spaeter", "rapport": null, "schwierigkeit": 2, "maschenprobe": "eigene Probe", "garnZuschlag": [0.1, 0.3] },
+    { "id": "zopf", "name": "Zöpfe", "status": "spaeter", "rapport": null, "schwierigkeit": 3, "maschenprobe": "starke Verengung", "mehrMaschenUeberZopf": { "standard": 0.25, "unsicher": true, "hinweis": "Faustregel, stark vom Zopf abhängig; Probe im Zopfmuster nötig." }, "garnZuschlag": [0.1, 0.3], "werkzeug": ["zopfnadel"] },
+    { "id": "lochmuster", "name": "Lochmuster", "status": "spaeter", "rapport": null, "schwierigkeit": 4, "maschenprobe": "sehr dehnbar, stark vom Spannen abhängig", "hinweise": ["Probe unbedingt spannen."] },
+    { "id": "fairIsle", "name": "Mehrfarbig eingestrickt (Fair Isle)", "status": "spaeter", "rapport": null, "schwierigkeit": 4, "maschenprobe": "oft fester; eigene Probe in Runden", "nadelAnpassung": "ggf. 1 Stärke dicker", "spannfadenMaxCm": { "standard": 2.5, "unsicher": true, "hinweis": "Kein Standard; 2,5 cm bzw. 5–6 Maschen üblich. In cm rechnen, dann über Maschenprobe in Maschen." }, "bevorzugteKonstruktion": ["rundpasse"] },
+    { "id": "intarsien", "name": "Intarsien", "status": "spaeter", "rapport": null, "schwierigkeit": 3, "hinweise": ["Meist in Reihen gestrickt."] }
+  ]
+}

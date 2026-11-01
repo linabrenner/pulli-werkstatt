@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "beschreibung": "Auswahlfelder für die Idee und Wenn-dann-Regeln für Vorschläge und Warnungen (kein Sprachmodell)",
+    "quelle": "01–07, Pulli-App-Anforderungen",
+    "stand": "2026-11-01",
+    "hinweise": [
+      "herkunft: 'recherche' = direkt aus den Notizen belegt, 'ableitung' = eigene Schlussfolgerung aus der Recherche, 'startwert' = Annahme zum Ausprobieren.",
+      "Bedingungen beziehen sich auf die Auswahl-IDs unten und auf IDs aus den anderen Dateien.",
+      "Neue Regeln einfach anhängen; die App wertet alle Regeln aus und zeigt jede passende an."
+    ]
+  },
+  "wunschEigenschaften": [
+    { "id": "erfahrung", "frage": "Wie viel Stricherfahrung hast du?", "optionen": [
+      { "id": "erster", "name": "Mein erster Pulli" },
+      { "id": "etwas", "name": "Ein paar Projekte" },
+      { "id": "viel", "name": "Viel Erfahrung" }
+    ] },
+    { "id": "sitz", "frage": "Wie soll er sitzen?", "optionen": [
+      { "id": "eng", "name": "Körpernah", "passform": "eng" },
+      { "id": "klassisch", "name": "Normal", "passform": "klassisch" },
+      { "id": "locker", "name": "Locker", "passform": "locker" },
+      { "id": "oversized", "name": "Oversized", "passform": "oversized" }
+    ] },
+    { "id": "waerme", "frage": "Wie warm soll er sein?", "optionen": [
+      { "id": "leicht", "name": "Leicht, für Übergang", "garnklassen": [1, 2, 3], "fasern": ["baumwolle", "leinen", "mischung", "wolle"] },
+      { "id": "mittel", "name": "Mittel", "garnklassen": [3, 4], "fasern": ["wolle", "superwash", "mischung"] },
+      { "id": "kuschelig", "name": "Kuschelig warm", "garnklassen": [4, 5, 6], "fasern": ["wolle", "alpaka"] }
+    ], "herkunft": "ableitung" },
+    { "id": "laenge", "frage": "Wie lang?", "optionen": [
+      { "id": "crop", "name": "Kurz (Crop)" },
+      { "id": "taille", "name": "Bis zur Taille" },
+      { "id": "huefte", "name": "Bis zur Hüfte" },
+      { "id": "tunika", "name": "Lang (Tunika)" }
+    ] },
+    { "id": "kragen", "frage": "Welcher Ausschnitt?", "optionen": [
+      { "id": "rundhals", "name": "Rundhals" },
+      { "id": "vAusschnitt", "name": "V-Ausschnitt" },
+      { "id": "rollkragen", "name": "Rollkragen" }
+    ] },
+    { "id": "aermel", "frage": "Welche Ärmel?", "optionen": [
+      { "id": "lang", "name": "Lang" },
+      { "id": "dreiviertel", "name": "¾" },
+      { "id": "kurz", "name": "Kurz" },
+      { "id": "ballon", "name": "Ballonärmel" }
+    ] },
+    { "id": "musterOrt", "frage": "Wo soll Muster hin?", "optionen": [
+      { "id": "nirgends", "name": "Kein Muster" },
+      { "id": "passe", "name": "An der Passe" },
+      { "id": "vorne", "name": "Vorne in der Mitte" },
+      { "id": "ueberall", "name": "Überall" }
+    ] },
+    { "id": "musterArt", "frage": "Was für ein Muster?", "nurWenn": "musterOrt != nirgends", "optionen": [
+      { "id": "struktur", "name": "Struktur (rechts/links)", "muster": "struktur" },
+      { "id": "zopf", "name": "Zöpfe", "muster": "zopf" },
+      { "id": "lochmuster", "name": "Lochmuster", "muster": "lochmuster" },
+      { "id": "mehrfarbig", "name": "Mehrfarbig", "muster": "fairIsle" }
+    ] }
+  ],
+  "vorschlagsRegeln": [
+    { "id": "v-anfaenger", "wenn": { "erfahrung": "erster" }, "dann": { "konstruktion": ["raglan", "dropShoulder"], "richtung": "topDown", "muster": "glattRechts" }, "begruendung": "Raglan von oben und Drop Shoulder brauchen wenig Formgebung, und von oben kann man unterwegs anprobieren.", "herkunft": "recherche", "quelle": "04 Pulloverkonstruktionen" },
+    { "id": "v-mehrfarbigPasse", "wenn": { "musterOrt": "passe", "musterArt": "mehrfarbig" }, "dann": { "konstruktion": ["rundpasse"] }, "begruendung": "Bei der Rundpasse liegen die Abnahmen in wenigen Runden gebündelt, dazwischen ist Platz für das Muster.", "herkunft": "recherche", "quelle": "04 Pulloverkonstruktionen" },
+    { "id": "v-koerpernah", "wenn": { "sitz": "eng" }, "dann": { "konstruktion": ["setIn", "raglan"] }, "begruendung": "Eingesetzte Ärmel sitzen am körpernächsten; Raglan ist die einfachere Alternative.", "herkunft": "recherche", "quelle": "04 Pulloverkonstruktionen" },
+    { "id": "v-oversized", "wenn": { "sitz": "oversized" }, "dann": { "konstruktion": ["dropShoulder", "raglan"] }, "begruendung": "Bei viel Weite fällt die einfache Schulterform kaum auf und verzeiht viel.", "herkunft": "ableitung" },
+    { "id": "v-grobesGarn", "wenn": { "garnklasseMin": 5 }, "dann": { "konstruktion": ["dropShoulder"] }, "begruendung": "Bei sehr grobem Garn ist eine einfache Form oder ein in Teilen genähter Pulli stabiler.", "herkunft": "recherche", "quelle": "04 Pulloverkonstruktionen" },
+    { "id": "v-zopfVorne", "wenn": { "musterOrt": "vorne", "musterArt": "zopf" }, "dann": { "konstruktion": ["raglan", "dropShoulder"] }, "begruendung": "Ein Zopfstreifen vorne läuft ungestört bis zum Hals, wenn die Formgebung an den Seiten (Raglanlinien) oder gar nicht an der Passe liegt.", "herkunft": "ableitung" },
+    { "id": "v-rollkragenRippen", "wenn": { "kragen": "rollkragen" }, "dann": { "kragenMuster": "rippen1x1" }, "begruendung": "Rippen sind dehnbar, damit der Kopf durchpasst.", "herkunft": "recherche", "quelle": "06 Details und Formgebung" },
+    { "id": "v-nackenerhoehung", "wenn": { "richtung": "topDown", "erfahrung": ["etwas", "viel"] }, "dann": { "nackenerhoehung": true }, "begruendung": "Verkürzte Reihen heben den hinteren Hals an, damit der Pulli nicht nach hinten rutscht.", "herkunft": "recherche", "quelle": "06 Details und Formgebung" }
+  ],
+  "warnRegeln": [
+    { "id": "w-zopfRundpasse", "wenn": { "musterArt": "zopf", "konstruktion": "rundpasse", "musterOrt": "vorne" }, "stufe": "hinweis", "meldung": "Die Abnahmerunden der Rundpasse unterbrechen einen durchgehenden Zopf vorne.", "alternative": "Raglan oder Drop Shoulder", "herkunft": "ableitung" },
+    { "id": "w-mehrfarbigBaumwolle", "wenn": { "musterArt": "mehrfarbig", "faser": "baumwolle" }, "stufe": "hinweis", "meldung": "Mehrfarbiges Gestrick ist dicker und weniger dehnbar, Baumwolle ist kaum elastisch: Das Ergebnis wird steif.", "alternative": "Wolle oder Wollmischung", "herkunft": "ableitung" },
+    { "id": "w-baumwolleNegativ", "wenn": { "faser": "baumwolle", "passform": ["sehrEng", "eng"] }, "stufe": "hinweis", "meldung": "Baumwolle springt kaum zurück. Enge Passform und Bündchen leiern aus.", "alternative": "klassische Passform oder Mischgarn", "herkunft": "recherche", "quelle": "01 Material und Werkzeug" },
+    { "id": "w-alpakaLaenge", "wenn": { "faser": "alpaka" }, "stufe": "info", "meldung": "Alpaka längt sich beim Tragen. Plane den Pulli lieber etwas kürzer.", "herkunft": "recherche", "quelle": "01 Material und Werkzeug" },
+    { "id": "w-superwash", "wenn": { "faser": "superwash" }, "stufe": "wichtig", "meldung": "Superwash-Wolle kann nass deutlich wachsen. Maschenprobe unbedingt waschen und trocknen, bevor du misst.", "herkunft": "recherche", "quelle": "01 Material und Werkzeug" },
+    { "id": "w-lace0", "wenn": { "garnklasse": 0 }, "stufe": "hinweis", "meldung": "Lace-Garn wird sehr unterschiedlich verstrickt. Die Standardwerte für Maschenprobe und Nadel passen hier kaum, die eigene Probe entscheidet.", "herkunft": "recherche", "quelle": "01 Material und Werkzeug" },
+    { "id": "w-mehrfarbigProbe", "wenn": { "musterArt": "mehrfarbig" }, "stufe": "wichtig", "meldung": "Maschenprobe für das Mehrfarbmuster in Runden stricken, sie ist meist fester als glatt rechts.", "herkunft": "recherche", "quelle": "03 Maschenprobe und Umrechnung" },
+    { "id": "w-zopfMaschen", "wenn": { "musterArt": "zopf" }, "stufe": "info", "meldung": "Zöpfe ziehen das Gestrick zusammen: Über dem Zopf braucht es deutlich mehr Maschen, und der Garnbedarf steigt um etwa 10–30 %.", "herkunft": "recherche", "quelle": "03 Maschenprobe und Umrechnung" },
+    { "id": "w-lochmusterSpannen", "wenn": { "musterArt": "lochmuster" }, "stufe": "info", "meldung": "Lochmuster ändern sich stark beim Spannen. Probe unbedingt spannen.", "herkunft": "recherche", "quelle": "02 Grundtechniken" },
+    { "id": "w-dropViel", "wenn": { "konstruktion": "dropShoulder", "passform": ["locker", "oversized"] }, "stufe": "info", "meldung": "Bei viel Weite bildet die Drop Shoulder unter dem Arm Stoffbausch. Das gehört zum Look, kann aber auftragen.", "herkunft": "recherche", "quelle": "04 Pulloverkonstruktionen" },
+    { "id": "w-erfahrungTechnik", "wenn": { "erfahrung": "erster", "techniken.schwierigkeitMax": 4 }, "stufe": "hinweis", "meldung": "Diese Kombination enthält Techniken für Erfahrene (z. B. verkürzte Reihen oder Mehrfarbmuster). Die App erklärt sie, aber plane eine Übungsprobe ein.", "herkunft": "ableitung" },
+    { "id": "w-schlauchanschlag", "wenn": { "anschlag": "schlauchanschlag", "buendchenMuster": "!rippen1x1" }, "stufe": "hinweis", "meldung": "Der Schlauchanschlag passt nur zu 1×1-Rippen, bei anderen Rippen wirkt er schief.", "herkunft": "recherche", "quelle": "02 Grundtechniken" }
+  ],
+  "rechenPruefungen": [
+    { "id": "p-raglanTiefe", "konstruktion": "raglan", "bedingung": "2 * max(n_koerper, n_aermel) <= Y", "meldung": "Die Zunahmen passen nicht in die Passentiefe. Der Körper bekommt einige Zunahmen in jeder Runde.", "herkunft": "recherche" },
+    { "id": "p-raglanGerade", "konstruktion": "raglan", "bedingung": "geradeStueckCm <= 5", "meldung": "Am Ende der Passe bliebe mehr als 5 cm ohne Zunahmen. Die App wählt andere Zunahmeraten.", "herkunft": "recherche" },
+    { "id": "p-setInArmloch", "konstruktion": "setIn", "bedingung": "(Fertigumfang/2 - Schulterbreite)/2 <= 7.5", "meldung": "Das Armloch müsste sehr viel Weite wegnehmen. Die Schulterbreite wird vergrößert.", "herkunft": "recherche" },
+    { "id": "p-kugelUmriss", "konstruktion": "setIn", "bedingung": "abs(2 * kugelUmriss - armlochUmfang) <= 1", "meldung": "Ärmelkugel und Armloch passen nicht zusammen; Kugelhöhe wird angepasst.", "herkunft": "ableitung" },
+    { "id": "p-passentiefe", "konstruktion": "rundpasse", "bedingung": "passentiefe <= armlochtiefe + 3", "meldung": "Die Passe würde tiefer als das Armloch. Passentiefe wird an die Armlochtiefe angepasst.", "herkunft": "ableitung" },
+    { "id": "p-kopf", "kragen": ["rollkragen", "rundhals"], "bedingung": "halsoeffnungGedehnt >= kopfumfang", "meldung": "Die Halsöffnung ist gedehnt kleiner als der Kopf. Mehr Maschen am Hals oder dehnbareren Anschlag wählen.", "herkunft": "ableitung", "hinweis": "Braucht Kopfumfang und Dehnung der Rippen-Probe; Dehnfaktor noch offen." },
+    { "id": "p-rate", "bedingung": "zunahmenJeSeiteProRunde <= 1", "meldung": "Mehr als eine Zunahme je Seite pro Runde ist nicht machbar.", "herkunft": "recherche" },
+    { "id": "p-easeKnotions", "bedingung": "easeProzent innerhalb knotionsProzent ± 5", "stufe": "info", "meldung": "Die Zugabe weicht stark von der prozentualen Faustregel ab. Bitte prüfen, ob die Passform stimmt.", "herkunft": "ableitung" }
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "_meta": {
+    "beschreibung": "Pulloverkonstruktionen mit Rechenparametern für den Rechenkern",
+    "quelle": "04 Pulloverkonstruktionen",
+    "stand": "2026-11-01",
+    "notation": {
+      "m": "Maschen pro cm",
+      "r": "Reihen/Runden pro cm",
+      "K": "Körpermaschen gesamt = Fertigumfang Brust * m"
+    },
+    "hinweise": [
+      "Werte mit 'unsicher: true' sind Faustregeln oder eigene Ableitungen und sollen als einstellbare Parameter mit Standardwert behandelt werden.",
+      "status: 'mvp' = erste Version, 'spaeter' = nach dem MVP, 'luecke' = Rechenlogik noch nicht vollständig recherchiert."
+    ]
+  },
+  "konstruktionen": [
+    {
+      "id": "raglan",
+      "name": "Raglan",
+      "status": "mvp",
+      "beschreibung": "Schräge Linien von der Achsel zum Hals; Rücken, Ärmel, Vorderteil, Ärmel durch 4 Marker getrennt.",
+      "richtungen": [
+        "topDown",
+        "bottomUp"
+      ],
+      "nahtlosMoeglich": true,
+      "passform": "mittel, gut anpassbar",
+      "rechenaufwand": "mittel",
+      "schwierigkeit": 2,
+      "benoetigteMaße": [
+        "hals",
+        "brust",
+        "oberarm",
+        "armlochtiefe",
+        "laengeBisAchsel",
+        "armlaenge",
+        "handgelenk"
+      ],
+      "parameter": {
+        "zunahmenProFormrunde": 8,
+        "formrundenAbstandStandard": 2,
+        "achselanschlagAnteilVonK": {
+          "min": 0.04,
+          "max": 0.08,
+          "standard": 0.05,
+          "unsicher": true,
+          "hinweis": "MDK-Beispiel ≈ 4,8 % je Seite, EPS 8 %."
+        },
+        "aermelAnschlagAnteilVonRuecken": {
+          "standard": 0.333,
+          "unsicher": true,
+          "quelle": "Blue Sky Fibers"
+        },
+        "vorderteilAnschlagMaschen": {
+          "standard": 1,
+          "hinweis": "Bei Rundhals entsteht der Ausschnitt durch Zunahmen an den Vorderteilkanten.",
+          "quelle": "Blue Sky Fibers"
+        },
+        "rueckenMaschenGerade": true,
+        "maxGeradeStueckOhneZunahmeCm": {
+          "standard": 5,
+          "quelle": "Interweave (Suchauszug)",
+          "hinweis": "Längeres Gerade-Stück: andere Zunahmeraten wählen."
+        },
+        "halstiefeAusAermelanschlag": {
+          "faktor": 0.5,
+          "hinweis": "Halstiefe ≈ halbe Ärmel-Anschlagmaschen (in Maschen gezählt)."
+        },
+        "raglantiefe": {
+          "regel": "= Armlochtiefe (Körpermaß)",
+          "unsicher": true,
+          "herkunft": "startwert",
+          "hinweis": "Im Testpulli passt die Passe damit nur knapp; beim Anprobieren prüfen."
+        }
+      },
+      "beziehungen": [
+        "Halsbreite (M) = Vorderteil-Anschlag + Rücken-Anschlag",
+        "Körpermaschen nach Teilung = Vorderteil + Rücken + 2 * Achselanschlag",
+        "Oberarmmaschen = Ärmelmaschen + Achselanschlag",
+        "Formrunden je Abschnitt = (Ziel - Start) / 2"
+      ],
+      "ablaufTopDown": [
+        "K = round(BrustFertig * m)",
+        "U = round(K * achselanschlagAnteilVonK) je Seite",
+        "Vorder- und Rückenteil an der Achsel = (K - 2U) / 2",
+        "Ärmel an der Achsel = round(OberarmFertig * m) - U",
+        "Halsanschlag aufteilen in Rücken, 2 Ärmel, Vorderteil",
+        "n_koerper = (Ziel Rücken - Start Rücken) / 2; n_aermel = (Ziel Ärmel - Start Ärmel) / 2",
+        "Y = round(Raglantiefe * r)",
+        "Prüfen: 2 * max(n_koerper, n_aermel) <= Y; sonst Rate erhöhen (Körper teils jede Runde) oder U anpassen",
+        "Zunahmen mit Line-Sum-Formel über Y verteilen",
+        "Teilen: Ärmelmaschen stilllegen, je Achsel U Maschen anschlagen"
+      ],
+      "testfall": {
+        "quelle": "MDK – Ask Patty: Neck Redesign Part 4",
+        "maschenprobe": {
+          "maschenProInch": 4,
+          "reihenProInch": 5
+        },
+        "erwartet": {
+          "aermelStart": 14,
+          "aermelZiel": 40,
+          "hals": 40,
+          "vorderUndRuecken": 66,
+          "achsel": 7,
+          "brust": 146,
+          "oberarm": 47,
+          "passentiefeRunden": 35,
+          "zunahmerunden": 13,
+          "geradeRunden": 9
+        }
+      },
+      "vorteile": [
+        "nahtlos",
+        "top-down anprobierbar",
+        "leicht anpassbar"
+      ],
+      "nachteile": [
+        "Bei breiter Brust und schmalen Schultern kann die Passe zu tief werden; dann unterschiedliche Raten für Körper und Ärmel."
+      ],
+      "testfallEigen": {
+        "quelle": "11 Testpulli Raglan",
+        "eingabe": {
+          "groesse": "damen M (Mittelwerte)",
+          "passform": "klassisch",
+          "maschen10cm": 22,
+          "runden10cm": 30,
+          "rippenMaschen10cm": 24,
+          "handgelenkCm": 16
+        },
+        "erwartet": {
+          "K": 224,
+          "achselanschlag": 12,
+          "vorderUndRuecken": 100,
+          "aermelAchsel": 63,
+          "anschlag": {
+            "ruecken": 42,
+            "aermel": 13,
+            "vorderteil": 42,
+            "gesamt": 110
+          },
+          "passeRunden": 55,
+          "koerperZunahmen": "4x jede Rd, 25x jede 2. Rd, 1 Rd gerade",
+          "aermelZunahmen": "3x jede 3. Rd, 22x jede 2. Rd, 2 Rd gerade",
+          "nackenerhoehungPaare": 4,
+          "wendestellenAbMitte": [
+            32,
+            24,
+            15,
+            7
+          ],
+          "koerperNachTeilung": 224,
+          "koerperGlattRunden": 90,
+          "saumMaschen": 224,
+          "aermelOben": 75,
+          "aermelUnten": 37,
+          "aermelAbnahmen": "9 Rd gerade, 5x jede 6. Rd, 14x jede 5. Rd, 5 Rd gerade",
+          "manschette": 34
+        }
+      }
+    },
+    {
+      "id": "rundpasse",
+      "name": "Rundpasse (Yoke, EPS)",
+      "status": "spaeter",
+      "beschreibung": "Körper und Ärmel bis zur Achsel, vereinen, Passe in wenigen Abnahmerunden auf Halsweite verkleinern. Ideal für Mehrfarbmuster.",
+      "richtungen": [
+        "bottomUp",
+        "topDown"
+      ],
+      "nahtlosMoeglich": true,
+      "passform": "mittel, an den Schultern weniger präzise",
+      "rechenaufwand": "mittel",
+      "schwierigkeit": 3,
+      "benoetigteMaße": [
+        "brust",
+        "oberarm",
+        "handgelenk",
+        "laengeBisAchsel",
+        "armlaenge",
+        "armlochtiefe"
+      ],
+      "parameter": {
+        "eps": {
+          "koerper": 1.0,
+          "aermelHandgelenk": {
+            "min": 0.2,
+            "max": 0.25
+          },
+          "aermelOberarm": {
+            "min": 0.35,
+            "max": 0.4,
+            "standard": 0.35
+          },
+          "achselJeTeil": {
+            "min": 0.08,
+            "max": 0.1,
+            "standard": 0.08
+          },
+          "hals": {
+            "standard": 0.4,
+            "min": 0.33,
+            "max": 0.5,
+            "unsicher": true,
+            "hinweis": "Quellen nennen 33–50 % von K."
+          }
+        },
+        "abnahmerunden": [
+          {
+            "prozent": 25,
+            "muster": "*2 M, 2 M zus*",
+            "faktor": 0.75,
+            "lageAnteilPassentiefe": 0.5
+          },
+          {
+            "prozent": 33,
+            "muster": "*1 M, 2 M zus*",
+            "faktor": 0.667,
+            "lageAnteilPassentiefe": 0.75
+          },
+          {
+            "prozent": 40,
+            "muster": "*1 M, 2 M zus, 2 M zus*",
+            "faktor": 0.6,
+            "lageVorEndeCm": 1.3
+          }
+        ],
+        "optionaleAbnahme": {
+          "prozent": 20,
+          "muster": "*3 M, 2 M zus*",
+          "faktor": 0.8
+        },
+        "passentiefe": {
+          "regel": "halbe Körperbreite (¼ Umfang)",
+          "unsicher": true,
+          "hinweis": "Bei großen Größen gegen Armlochtiefe der Größentabelle prüfen."
+        },
+        "rueckenerhoehung": true
+      },
+      "beziehungen": [
+        "Passenmaschen = K + 2 * Ärmel_Oberarm - 4 * Achsel",
+        "Produkt der Abnahmefaktoren = Hals / Passenmaschen"
+      ],
+      "testfall": {
+        "quelle": "Knit Picks – Elizabeth's Percentage System (K = 250); eigene Plausibilitätsrechnung",
+        "eingabe": {
+          "K": 250,
+          "aermelOberarm": 0.35,
+          "achselJeTeil": 0.08
+        },
+        "erwartet": {
+          "passenmaschenAnteil": 1.38,
+          "halsNachAbnahmenAnteilCa": 0.41
+        }
+      },
+      "vorteile": [
+        "sehr gut für Mehrfarbmuster",
+        "einfache Rechnung"
+      ],
+      "nachteile": [
+        "Schulterpassform weniger präzise",
+        "Passentiefe bei großer Brust kritisch"
+      ]
+    },
+    {
+      "id": "dropShoulder",
+      "name": "Drop Shoulder (überschnittene Schulter)",
+      "status": "spaeter",
+      "beschreibung": "Körper als Rechteck bis zur Schulter, kein Armloch; Ärmel gerade oder leicht konisch angesetzt.",
+      "richtungen": [
+        "bottomUp",
+        "topDown"
+      ],
+      "nahtlosMoeglich": true,
+      "passform": "locker, verzeiht viel",
+      "rechenaufwand": "gering",
+      "schwierigkeit": 1,
+      "benoetigteMaße": [
+        "brust",
+        "oberarm",
+        "handgelenk",
+        "gesamtlaenge",
+        "armlaenge",
+        "schulterbreite"
+      ],
+      "parameter": {
+        "aermelweite": {
+          "methode": "oberarmPlusEase",
+          "oberarmEaseCm": {
+            "min": 5,
+            "max": 7.5
+          },
+          "alternativ": "2 * Armlochtiefe (ergibt oft sehr weite Ärmel)",
+          "epsOberarmAnteilVonK": {
+            "min": 0.45,
+            "max": 0.5
+          },
+          "unsicher": true,
+          "hinweis": "Quellen widersprechen sich; Standard ist Oberarm + Ease, Armlochöffnung = Ärmelweite / 2."
+        },
+        "schulterabfallCm": {
+          "formel": "(Körperbreite - Schulterbreite) / 2",
+          "hinweis": "Ärmel um diesen Betrag kürzer stricken.",
+          "unsicher": true
+        }
+      },
+      "vorteile": [
+        "einfach",
+        "verzeiht ungenaue Passform"
+      ],
+      "nachteile": [
+        "Stoffbausch unter dem Arm, besonders bei viel Ease"
+      ]
+    },
+    {
+      "id": "modifiedDrop",
+      "name": "Modified Drop Shoulder",
+      "status": "spaeter",
+      "beschreibung": "Wie Drop Shoulder, aber mit kleinem rechteckigem Einschnitt am Armloch (abketten, keine Abnahmen).",
+      "richtungen": [
+        "bottomUp"
+      ],
+      "nahtlosMoeglich": false,
+      "schwierigkeit": 2,
+      "parameter": {},
+      "unsicher": true,
+      "hinweis": "In der Recherche nur indirekt belegt."
+    },
+    {
+      "id": "setIn",
+      "name": "Eingesetzte Ärmel (Set-in)",
+      "status": "spaeter",
+      "beschreibung": "Geformtes Armloch bis auf Schulterbreite, Ärmel mit Ärmelkugel, deren Umriss dem Armlochumfang entspricht.",
+      "richtungen": [
+        "bottomUp",
+        "topDown"
+      ],
+      "nahtlosMoeglich": true,
+      "passform": "am körpernächsten",
+      "rechenaufwand": "hoch",
+      "schwierigkeit": 3,
+      "benoetigteMaße": [
+        "brust",
+        "schulterbreite",
+        "armlochtiefe",
+        "oberarm",
+        "armlaenge",
+        "handgelenk"
+      ],
+      "parameter": {
+        "armlochMaschenProTeil": {
+          "formel": "(Fertigumfang / 2 - Schulterbreite) * m",
+          "hinweis": "Je Seite die Hälfte: Teil sofort abketten, Rest über Abnahmen."
+        },
+        "maxArmlochDifferenzJeSeiteCm": {
+          "min": 6,
+          "max": 7.5,
+          "hinweis": "Darüber Schulterbreite vergrößern."
+        },
+        "kugel": {
+          "ersteAbkettung": "gleich der Achsel-Abkettung am Körper",
+          "kugelhoehe": {
+            "regeln": [
+              {
+                "id": "zweiDrittel",
+                "formel": "2/3 * Armlochtiefe + 1",
+                "quelle": "Simply Yarn"
+              },
+              {
+                "id": "paden",
+                "formel": "Armlochtiefe - 7.5",
+                "quelle": "Shirley Paden via Ann Kingstone"
+              }
+            ],
+            "empfehlung": "iterativ so wählen, dass 2 * Kugelumriss ≈ Armlochumfang",
+            "unsicher": true
+          },
+          "breiteObenCm": {
+            "min": 7,
+            "max": 10,
+            "maxLocker": 13
+          },
+          "abnahmereihen": "(Maschen nach erster Abkettung - Maschen oben) / 2",
+          "umrissFormel": "L ≈ Summe sqrt((ΔM/m)^2 + (ΔR/r)^2) je Abnahmeabschnitt"
+        }
+      },
+      "testfall": {
+        "quelle": "Simply Yarn – How to shape armholes",
+        "eingabe": {
+          "armlochtiefeCm": 21,
+          "reihenProCm": 2.8
+        },
+        "erwartet": {
+          "kugelhoeheCm": 15,
+          "kugelreihen": 42,
+          "abnahmereihen": 21
+        }
+      }
+    },
+    {
+      "id": "saddle",
+      "name": "Sattelschulter",
+      "status": "luecke",
+      "beschreibung": "Stoffstreifen über der Schulter, geht in die Ärmelkugel über.",
+      "schwierigkeit": 4,
+      "parameter": {
+        "sattelbreiteCm": {
+          "standard": null,
+          "hinweis": "Designentscheidung, typisch einige cm."
+        },
+        "regel": "Schulterbreite je Seite minus halbe Sattelbreite; Armlochtiefe minus Sattelbreite (eigene Ableitung)"
+      },
+      "unsicher": true,
+      "hinweis": "Belastbare Sattelformel fehlt."
+    },
+    {
+      "id": "contiguous",
+      "name": "Contiguous",
+      "status": "luecke",
+      "beschreibung": "Top-down mit Set-in-Optik, Schulter und Kugel durch Zunahmen an Schultermarkern, ohne Naht.",
+      "richtungen": [
+        "topDown"
+      ],
+      "nahtlosMoeglich": true,
+      "schwierigkeit": 4,
+      "parameter": {},
+      "unsicher": true,
+      "hinweis": "Genaue Zunahmeraten fehlen (Originaltutorial nicht gefunden)."
+    }
+  ],
+  "entscheidungshilfe": [
+    {
+      "wunsch": "anfaengerfreundlich",
+      "empfehlung": [
+        "dropShoulder",
+        "raglan"
+      ],
+      "richtung": "topDown"
+    },
+    {
+      "wunsch": "mehrfarbigePasse",
+      "empfehlung": [
+        "rundpasse"
+      ]
+    },
+    {
+      "wunsch": "koerpernah",
+      "empfehlung": [
+        "setIn",
+        "contiguous"
+      ]
+    },
+    {
+      "wunsch": "sehrGrobesGarn",
+      "empfehlung": [
+        "dropShoulder"
+      ],
+      "hinweis": "oder in Teilen genäht, für Stabilität"
+    },
+    {
+      "wunsch": "anprobieren",
+      "empfehlung": [
+        "raglan",
+        "rundpasse",
+        "contiguous"
+      ],
+      "richtung": "topDown"
+    }
+  ]
+}

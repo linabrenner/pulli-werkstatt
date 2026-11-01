@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "beschreibung": "Abkürzungen Deutsch mit englischer Entsprechung. Die App zeigt nur die Abkürzungen, die in einer Anleitung tatsächlich vorkommen.",
+    "quelle": "07 Anleitungs-Konventionen und Abkürzungen",
+    "stand": "2026-11-01",
+    "hinweise": [
+      "Schreibweisen variieren je Verlag, es gibt keine verbindliche Norm.",
+      "verifiziert: false = gängige, aber in der Recherche nicht belegte Schreibweise."
+    ]
+  },
+  "abkuerzungen": {
+    "M": { "kurz": "M", "lang": "Masche(n)", "en": "st(s)", "enLang": "stitch(es)" },
+    "R": { "kurz": "R", "lang": "Reihe", "en": "row", "enLang": "row" },
+    "Rd": { "kurz": "Rd", "lang": "Runde", "en": "rnd", "enLang": "round" },
+    "re": { "kurz": "re", "lang": "rechts / rechte Masche", "en": "k", "enLang": "knit" },
+    "li": { "kurz": "li", "lang": "links / linke Masche", "en": "p", "enLang": "purl" },
+    "glattRe": { "kurz": "glatt re", "lang": "glatt rechts", "en": "st st", "enLang": "stockinette stitch" },
+    "glattLi": { "kurz": "glatt li", "lang": "glatt links", "en": "rev st st", "enLang": "reverse stockinette" },
+    "krausRe": { "kurz": "kraus re", "lang": "kraus rechts", "en": null, "enLang": "garter stitch" },
+    "Hinr": { "kurz": "Hinr", "lang": "Hinreihe", "en": "RS", "enLang": "right side" },
+    "Rueckr": { "kurz": "Rückr", "lang": "Rückreihe", "en": "WS", "enLang": "wrong side" },
+    "str": { "kurz": "str", "lang": "stricken", "en": null, "enLang": "work / knit" },
+    "zus": { "kurz": "zus", "lang": "zusammenstricken", "en": "tog", "enLang": "together" },
+    "2Mrezus": { "kurz": "2 M re zus", "lang": "2 Maschen rechts zusammenstricken", "en": "k2tog", "enLang": "knit 2 together" },
+    "2Mlizus": { "kurz": "2 M li zus", "lang": "2 Maschen links zusammenstricken", "en": "p2tog", "enLang": "purl 2 together" },
+    "uezAbn": { "kurz": "überz Abn", "lang": "überzogene Abnahme (1 M abh, 1 M re, abgeh. M überziehen)", "en": "skp / ssk", "enLang": "slip, knit, pass over / slip slip knit" },
+    "3Mzus": { "kurz": "3 M zus", "lang": "3 Maschen zusammenstricken (doppelte Abnahme)", "en": "cdd / sk2p", "enLang": "central double decrease", "verifiziert": false },
+    "abh": { "kurz": "abh", "lang": "abheben", "en": "sl", "enLang": "slip" },
+    "ueberz": { "kurz": "überz", "lang": "überziehen", "en": "psso", "enLang": "pass slipped stitch over" },
+    "U": { "kurz": "U", "lang": "Umschlag", "en": "yo", "enLang": "yarn over" },
+    "zun": { "kurz": "zun", "lang": "zunehmen / Zunahme", "en": "inc", "enLang": "increase" },
+    "abn": { "kurz": "abn", "lang": "abnehmen / Abnahme", "en": "dec", "enLang": "decrease" },
+    "M1R": { "kurz": "M1R", "lang": "aus dem Querfaden rechtsgeneigt zunehmen", "en": "M1R", "enLang": "make 1 right" },
+    "M1L": { "kurz": "M1L", "lang": "aus dem Querfaden linksgeneigt zunehmen", "en": "M1L", "enLang": "make 1 left" },
+    "kfb": { "kurz": "kfb", "lang": "aus einer Masche 2 M (vorderes und hinteres Maschenglied)", "en": "kfb", "enLang": "knit front and back" },
+    "RLI/LLI": { "kurz": "RLI/LLI", "lang": "herausgehobene Zunahme rechts/links", "en": "RLI/LLI", "enLang": "right/left lifted increase" },
+    "reVerschr": { "kurz": "re verschr", "lang": "rechts verschränkt", "en": "k tbl", "enLang": "knit through back loop" },
+    "liVerschr": { "kurz": "li verschr", "lang": "links verschränkt", "en": "p tbl", "enLang": "purl through back loop" },
+    "anschl": { "kurz": "anschl", "lang": "anschlagen", "en": "CO", "enLang": "cast on" },
+    "abk": { "kurz": "abk", "lang": "abketten", "en": "BO", "enLang": "bind off" },
+    "MM": { "kurz": "MM", "lang": "Maschenmarkierer", "en": "pm / sm", "enLang": "place marker / slip marker" },
+    "MS": { "kurz": "MS", "lang": "Mustersatz (Rapport)", "en": "rep", "enLang": "pattern repeat" },
+    "wdh": { "kurz": "wdh", "lang": "wiederholen", "en": "rep", "enLang": "repeat" },
+    "beids": { "kurz": "beids", "lang": "beidseitig", "en": null, "enLang": "each side" },
+    "folg": { "kurz": "folg", "lang": "folgende", "en": "foll", "enLang": "following" },
+    "restl": { "kurz": "restl", "lang": "restliche", "en": "rem", "enLang": "remaining" },
+    "Anf": { "kurz": "Anf", "lang": "Anfang", "en": "beg", "enLang": "beginning" },
+    "Nd": { "kurz": "Nd", "lang": "Nadel", "en": "ndl", "enLang": "needle" },
+    "Hiln": { "kurz": "Hiln", "lang": "Hilfsnadel / Zopfnadel", "en": "cn", "enLang": "cable needle", "verifiziert": false },
+    "Fb": { "kurz": "Fb", "lang": "Farbe", "en": "MC/CC", "enLang": "main/contrast colour" },
+    "LL": { "kurz": "LL", "lang": "Lauflänge", "en": null, "enLang": "yardage / meterage" },
+    "Gr": { "kurz": "Gr", "lang": "Größe", "en": null, "enLang": "size" },
+    "Maufn": { "kurz": "M aufn", "lang": "Maschen aufnehmen", "en": "pu", "enLang": "pick up (and knit)", "verifiziert": false },
+    "DM": { "kurz": "DM", "lang": "Doppelmasche (verkürzte Reihen)", "en": "DS", "enLang": "double stitch", "verifiziert": false }
+  },
+  "formulierungen": {
+    "wiederholung": "*…* bis Rundenende wiederholen",
+    "kontrolle": "= {anzahl} M",
+    "intervall": "in jeder {abstand}. Runde {anzahl}× je 1 M zunehmen",
+    "mehrgroessen": "{a} ({b} - {c} - {d}) M"
+  }
+}

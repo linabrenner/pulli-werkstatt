@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "beschreibung": "Messpunkte und Standard-Größentabellen des Craft Yarn Council (Körpermaße, keine Fertigmaße)",
+    "quelle": "05 Maße, Passform und Größen",
+    "stand": "2026-11-01",
+    "einheit": "cm",
+    "hinweise": [
+      "Werte als {min, max}. Wo die Quelle einen Einzelwert nennt, ist min = max.",
+      "Für die Berechnung den Mittelwert der Spanne verwenden, sofern keine eigenen Maße vorliegen.",
+      "Jede Größe aus ihren eigenen Maßen neu berechnen, nicht linear graden.",
+      "Hals, Handgelenk, Oberbrust und Schulterschräge fehlen im CYC-Standard."
+    ]
+  },
+  "messpunkte": [
+    { "id": "brust", "name": "Brust/Oberweite", "anleitung": "An der stärksten Stelle messen, Maßband nicht straff ziehen." },
+    { "id": "nackenHandgelenk", "name": "Rückenmitte Nacken bis Handgelenk", "anleitung": "Arm gestreckt; vom Nackenansatz über die Schulter bis zum Handgelenk." },
+    { "id": "rueckenlaengeTaille", "name": "Rückenlänge bis Taille", "anleitung": "Vom Nackenwirbel bis zur natürlichen Taille." },
+    { "id": "schulterbreite", "name": "Schulterbreite", "anleitung": "Hinten von Schulterkante zu Schulterkante." },
+    { "id": "armlaenge", "name": "Armlänge bis Achsel", "anleitung": "Arm leicht gebeugt, von der Achsel bis zum Handgelenk." },
+    { "id": "oberarm", "name": "Oberarm", "anleitung": "Weiteste Stelle über dem Ellbogen." },
+    { "id": "armlochtiefe", "name": "Armlochtiefe", "anleitung": "Von der oberen äußeren Schulterkante bis zur Achsel." },
+    { "id": "taille", "name": "Taille", "anleitung": "Schmalste Stelle der natürlichen Taille, meist knapp über dem Nabel." },
+    { "id": "huefte", "name": "Hüfte", "anleitung": "Weiteste Stelle der unteren Hüfte." },
+    { "id": "handgelenk", "name": "Handgelenk", "anleitung": "Um das Handgelenk messen.", "nichtImCyc": true },
+    { "id": "kopf", "name": "Kopfumfang", "anleitung": "Für den Kopfdurchlass bei Rollkragen und engem Rundhals.", "nichtImCyc": true }
+  ],
+  "messtipps": [
+    "Am besten von einer anderen Person messen lassen.",
+    "Alternativ einen gut sitzenden Pullover flach hinlegen und ausmessen; dann sind es Fertigmaße, kein Ease mehr addieren."
+  ],
+  "tabellen": {
+    "damen": {
+      "groessen": ["XS", "S", "M", "L", "XL", "2X", "3X", "4X", "5X"],
+      "maße": {
+        "brust": [[71, 76], [81, 86], [91.5, 96.5], [101.5, 106.5], [111.5, 117], [122, 127], [132, 137], [142, 147], [152, 158]],
+        "nackenHandgelenk": [[66, 68.5], [68.5, 70], [71, 72.5], [73.5, 75], [73.5, 75], [76.5, 77.5], [77.5, 79], [80, 81.5], [80, 81.5]],
+        "rueckenlaengeTaille": [[42, 42], [43, 43], [43.5, 43.5], [44.5, 44.5], [45, 45], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
+        "schulterbreite": [[35.5, 37], [37, 38], [39.5, 40.5], [42, 43], [44.5, 44.5], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
+        "armlaenge": [[42, 42], [43, 43], [43, 43], [44.5, 44.5], [44.5, 44.5], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
+        "oberarm": [[25, 25], [26, 26], [28, 28], [30.5, 30.5], [34.5, 34.5], [39.5, 39.5], [43, 43], [47, 47], [49.5, 49.5]],
+        "armlochtiefe": [[15.5, 16.5], [16.5, 17.5], [17.5, 19], [19, 20.5], [20.5, 21.5], [21.5, 23], [23, 24], [24, 25.5], [25.5, 26.5]],
+        "taille": [[58.5, 61], [63.5, 67.5], [71, 76], [81.5, 86.5], [91.5, 96.5], [101.5, 106.5], [111.5, 114], [116.5, 119], [124, 127]],
+        "huefte": [[83.5, 86], [89, 91.5], [96.5, 101.5], [106.5, 111.5], [116.5, 122], [132, 134.5], [137, 139.5], [142, 144.5], [155, 157]]
+      },
+      "unsicherheiten": ["Oberarm 4X und 5X sind in inch gleich (18½\"), in cm aber 47 und 49,5."]
+    },
+    "herren": {
+      "groessen": ["S", "M", "L", "XL", "2X", "3X", "4X", "5X"],
+      "maße": {
+        "brust": [[86, 91.5], [96.5, 101.5], [106.5, 111.5], [116.5, 122], [127, 132], [137, 142], [147.5, 152], [157.5, 162.5]],
+        "nackenHandgelenk": [[81, 82.5], [83.5, 85], [86.5, 87.5], [89, 90], [91.5, 92.5], [94, 95], [96.5, 97.5], [99, 100.5]],
+        "rueckenlaengeHuefte": [[58.5, 61], [63.5, 66], [66, 68.5], [71, 71], [73.5, 73.5], [76, 76], [76, 76], [79, 79]],
+        "schulterbreite": [[39.5, 40.5], [42, 43], [44.5, 45.5], [45.5, 47], [48, 51], [48, 51], [51, 54.5], [56, 57]],
+        "armlaenge": [[45.5, 45.5], [47, 47], [49.5, 49.5], [50.5, 50.5], [52, 52], [52, 52], [49.5, 49.5], [53.5, 54.5]]
+      },
+      "unsicherheiten": [
+        "In der Quelle 'Back Waist Length' genannt, Werte passen aber zur Rückenlänge bis Hüfte; hier deshalb als rueckenlaengeHuefte geführt.",
+        "2X und 3X haben in cm dieselbe Schulterbreite, in inch nicht.",
+        "Armlänge 4X: 21\" wären ca. 53,5 cm, die Tabelle nennt 49,5 cm.",
+        "Oberarm, Armlochtiefe, Taille und Hüfte fehlen (nicht ausgelesen)."
+      ]
+    },
+    "kinder": {
+      "groessen": ["2", "4", "6", "8", "10", "12", "14", "16"],
+      "maße": {
+        "brust": [[53, 53], [58.5, 58.5], [63.5, 63.5], [67, 67], [71, 71], [76, 76], [80, 80], [82.5, 82.5]],
+        "nackenHandgelenk": [[45.5, 45.5], [49.5, 49.5], [52, 52], [56, 56], [61, 61], [66, 66], [68.5, 68.5], [71, 71]],
+        "rueckenlaengeTaille": [[21.5, 21.5], [24, 24], [26.5, 26.5], [31.5, 31.5], [35.5, 35.5], [38, 38], [39.5, 39.5], [40.5, 40.5]],
+        "schulterbreite": [[23.5, 23.5], [25, 25], [26, 26], [27, 27], [28.5, 28.5], [30.5, 30.5], [31, 31], [33, 33]],
+        "armlaenge": [[21.5, 21.5], [26.5, 26.5], [29, 29], [31.5, 31.5], [34.5, 34.5], [38, 38], [40.5, 40.5], [42, 42]],
+        "oberarm": [[17.5, 17.5], [19, 19], [20.5, 20.5], [21.5, 21.5], [22, 22], [23, 23], [23.5, 23.5], [24, 24]],
+        "armlochtiefe": [[10.5, 10.5], [12, 12], [12.5, 12.5], [14, 14], [15.5, 15.5], [16.5, 16.5], [17.5, 17.5], [19, 19]],
+        "taille": [[53.5, 53.5], [54.5, 54.5], [57, 57], [59.5, 59.5], [62, 62], [63.5, 63.5], [67.5, 67.5], [69.5, 69.5]],
+        "huefte": [[56, 56], [59.5, 59.5], [63.5, 63.5], [71, 71], [75, 75], [80, 80], [83.5, 83.5], [90, 90]]
+      },
+      "unsicherheiten": ["Babygrößen fehlen (eigene CYC-Seite, nicht ausgelesen)."]
+    }
+  },
+  "laengen": {
+    "_hinweis": "Länge ab Nacken, abgeleitet aus Rückenlänge bis Taille (CYC).",
+    "damen": { "taille": 0, "huefte": 15, "tunika": 28 },
+    "kinder": { "taille": 0, "huefte": 5, "tunika": 15 },
+    "herren": { "_hinweis": "Herrenlänge liegt meist nur 2,5–5 cm über/unter der Rückenlänge bis Hüfte.", "abweichung": { "min": -5, "max": 5 } },
+    "crop": { "_hinweis": "Kein CYC-Wert. Eigener Vorschlag: Taillenlänge minus 5 cm.", "unsicher": true, "damen": -5 }
+  },
+  "plausibilitaet": {
+    "_hinweis": "Eigene Prüfregeln für eingegebene Maße.",
+    "regeln": [
+      { "id": "oberarm-brust", "bedingung": "oberarm < brust * 0.5", "meldung": "Oberarm ist ungewöhnlich groß im Verhältnis zur Brust. Bitte nachmessen." },
+      { "id": "taille-huefte", "bedingung": "taille <= huefte + 10", "meldung": "Taille ist deutlich größer als Hüfte. Bitte nachmessen." },
+      { "id": "schulter-brust", "bedingung": "schulterbreite < brust / 2", "meldung": "Schulterbreite ist größer als die halbe Brust. Bitte prüfen, ob hinten gemessen wurde." },
+      { "id": "armloch", "bedingung": "armlochtiefe >= 10 && armlochtiefe <= 30", "meldung": "Armlochtiefe liegt außerhalb von 10–30 cm." }
+    ]
+  }
+}
