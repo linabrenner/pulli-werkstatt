@@ -11,6 +11,7 @@ const dialog = document.getElementById("dialog");
 let D;            // Wissensdaten
 let stand;        // {projekte: [...]}
 let wakeLock = null;
+let tick = false; // Zähler kurz hervorheben, nachdem eine Runde gezählt wurde
 
 const SEITEN = [
   ["idee", "Idee"], ["schnitt", "Schnitt"], ["groesse", "Größe"], ["probe", "Maschenprobe"], ["anleitung", "Anleitung"], ["stricken", "Stricken"],
@@ -135,36 +136,43 @@ function regelBoxen(p, erg) {
     ...warnungen.map((w) => hinweisBox(w.stufe, w.alternative ? `Tipp: lieber ${w.alternative}` : null, w.meldung)),
   ].join("");
 }
+const maschenreihe = (anteil, label) =>
+  `<div class="maschenreihe" role="progressbar" aria-label="${esc(label)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${runden(anteil * 100)}" style="--anteil:${(anteil * 100).toFixed(1)}%"></div>`;
+
 function zeigeTechnik(id) {
   const t = technik(id);
   if (!t) return;
-  document.getElementById("dialog-inhalt").innerHTML = `<h2 style="margin-top:0">${esc(t.name)}</h2>
+  document.getElementById("dialog-inhalt").innerHTML = `<h2>${esc(t.name)}</h2>
     <p>${esc(t.erklaerung)}</p>${t.hinweis ? `<p class="leise">${esc(t.hinweis)}</p>` : ""}
     ${t.video ? `<p><a href="${esc(t.video)}" target="_blank" rel="noopener">Video ansehen</a></p>` : `<p class="leise">Video folgt.</p>`}`;
   dialog.showModal();
 }
 function zeigeText(titel, html) {
-  document.getElementById("dialog-inhalt").innerHTML = `<h2 style="margin-top:0">${esc(titel)}</h2>${html}`;
+  document.getElementById("dialog-inhalt").innerHTML = `<h2>${esc(titel)}</h2>${html}`;
   dialog.showModal();
 }
 
 // ---------- Seiten ----------
 function seiteStart() {
   const liste = stand.projekte.map((p) => {
-    let anteil = 0;
-    try { const f = strickfolge(berechne(p)); anteil = Object.keys(p.fortschritt.erledigt).length / f.length; } catch { /* unvollständig */ }
-    return `<div class="karte"><a class="projekt" href="#/p/${p.id}/${anteil > 0 ? "stricken" : "idee"}">
-      <div><strong>${esc(p.name)}</strong><div class="leise">angelegt ${new Date(p.erstellt).toLocaleDateString("de-DE")}</div>
-      <div class="balken" aria-label="Fortschritt"><i style="width:${runden(anteil * 100)}%"></i></div></div><span aria-hidden="true">›</span></a></div>`;
+    let anteil = 0, gesamt = 0;
+    try { gesamt = strickfolge(berechne(p)).length; anteil = Object.keys(p.fortschritt.erledigt).length / gesamt; } catch { /* unvollständig */ }
+    const status = anteil >= 1 ? "Fertig gestrickt" : anteil > 0 ? `${Object.keys(p.fortschritt.erledigt).length} von ${gesamt} Schritten gestrickt` : "Noch in Planung";
+    return `<a class="karte projekt" href="#/p/${p.id}/${anteil > 0 ? "stricken" : "idee"}">
+      <span class="projekt-kopf"><strong>${esc(p.name)}</strong><span class="projekt-stand">${status}</span></span>
+      ${maschenreihe(anteil, `Fortschritt ${p.name}`)}</a>`;
   }).join("");
-  app.innerHTML = `<h1>Was strickst du als Nächstes?</h1>
-    <p class="leise">Klick deine Idee zusammen, die Werkstatt rechnet alles aus und führt dich Runde für Runde durch.</p>
-    <button class="knopf primaer gross" data-aktion="neu">Neuer Pulli</button>
-    ${liste ? `<h2>Deine Projekte</h2>${liste}` : ""}
+  app.innerHTML = `<div class="start">
+    <div class="swatch" aria-hidden="true"></div>
+    <h1>Was strickst du als Nächstes?</h1>
+    <p class="unterzeile">Klick deine Idee zusammen. Die Werkstatt rechnet jede Masche aus und führt dich Runde für Runde durch.</p>
+    <button class="knopf primaer gross" data-aktion="neu">Neuen Pulli planen</button>
+    <h2>Deine Projekte</h2>
+    ${liste || `<p class="leer">Hier erscheinen deine Pullis, sobald du den ersten planst.</p>`}
     <h2>Sicherung</h2>
-    <p class="leise">Deine Projekte liegen nur auf diesem Gerät. Sichere sie ab und zu als Datei.</p>
+    <p class="leise">Deine Projekte liegen nur auf diesem Gerät. Sichere sie ab und zu als Datei, zum Beispiel vor einem Handywechsel.</p>
     <div class="leiste"><button class="knopf" data-aktion="export">Sichern</button>
-    <label class="knopf">Wiederherstellen<input type="file" accept="application/json" data-aktion="import" hidden></label></div>`;
+    <label class="knopf">Wiederherstellen<input type="file" accept="application/json" data-aktion="import" hidden></label></div></div>`;
 }
 
 function seiteIdee(p) {
@@ -198,8 +206,8 @@ function seiteSchnitt(p) {
     <div class="feld"><label for="faser">Faser</label><select id="faser" data-feld="faser">${D.garne.fasern.map((f) =>
       `<option value="${f.id}" ${p.faser === f.id ? "selected" : ""}>${esc(f.name)}</option>`).join("")}</select>
       <span class="leise">${esc(finde(D.garne.fasern, p.faser).hinweise.join(" "))}</span></div>
-    <div class="feld"><label><input type="checkbox" data-feld="nackenerhoehung" ${nackenerhoehung(p) ? "checked" : ""} style="width:auto;min-height:0"> Nackenerhöhung mit verkürzten Reihen</label>
-      <span class="leise">Hebt den Nacken an, damit der Pulli nicht nach hinten rutscht. Technik für Erfahrene, die App erklärt sie dir.</span></div>
+    <div class="feld"><label class="schalter"><input type="checkbox" data-feld="nackenerhoehung" ${nackenerhoehung(p) ? "checked" : ""}>
+      <span>Nackenerhöhung mit verkürzten Reihen<span class="leise" style="display:block;font-weight:400">Hebt den Nacken an, damit der Pulli nicht nach hinten rutscht. Technik für Erfahrene, die App erklärt sie dir.</span></span></label></div>
     ${regelBoxen(p)}
     ${weiterLeiste(p, "idee", "groesse")}`;
 }
@@ -278,16 +286,16 @@ function seiteAnleitung(p) {
   }).join("");
   const stufe = finde(D.techniken.schwierigkeitsstufen.map((x) => ({ ...x, id: x.stufe })), erg.schwierigkeit);
   app.innerHTML = `${nav(p, "anleitung")}<h1>${esc(p.name)}</h1>
-    <p class="leise">Raglan von oben, nahtlos · ${esc(finde(D.ease.passformen, passform(p)).name)} · Schwierigkeit: ${esc(stufe?.name)}</p>
+    <div class="etiketten"><span class="etikett stark">Raglan von oben</span><span class="etikett">Passform ${esc(finde(D.ease.passformen, passform(p)).name.toLowerCase())}</span><span class="etikett">Schwierigkeit: ${esc(stufe?.name)}</span></div>
     ${pr.geschaetzt ? hinweisBox("wichtig", null, "Gerechnet mit geschätzter Maschenprobe. Für einen passenden Pulli erst die Probe stricken.") : ""}
-    <div class="karte"><h2 style="margin-top:0">Fertigmaße</h2><table class="tabelle">
+    <div class="karte"><h2>Fertigmaße</h2><table class="tabelle">
       <tr><td>Brustumfang</td><td>${zahl(erg.zahlen.KK / (pr.m10 / 10), 0)} cm</td></tr>
       <tr><td>Oberarm</td><td>${zahl(erg.zahlen.AA / (pr.m10 / 10), 0)} cm</td></tr>
       <tr><td>Länge hinten ab Nacken</td><td>${zahl(f.laenge)} cm</td></tr>
       <tr><td>Passe</td><td>${zahl(f.raglantiefe)} cm</td></tr>
       <tr><td>Körper ab Achsel</td><td>${zahl(erg.koerperAbAchsel)} cm</td></tr>
       <tr><td>Ärmellänge</td><td>${zahl(p.groesse.masse.armlaenge)} cm</td></tr></table></div>
-    <div class="karte"><h2 style="margin-top:0">Material</h2>
+    <div class="karte"><h2>Material</h2>
       <p><b>Garn:</b> Garnklasse ${erg.material.garnklasse} (${esc(finde(D.garne.garnklassen, erg.material.garnklasse).name)}), ${esc(finde(D.garne.fasern, p.faser).name)}.
       ${erg.garn.gramm ? `Ca. <b>${erg.garn.gramm} g</b>${erg.garn.meter ? ` (${erg.garn.meter} m)` : ""} inkl. 10 % Reserve.` : `Menge: Probe wiegen und auf der Seite Maschenprobe eintragen (Fläche ca. ${zahl(erg.garn.flaecheCm2 / 10000, 2)} m²).`}</p>
       <table class="tabelle">${erg.material.nadeln.map((n) => `<tr><td>${esc(n.wofuer)}<div class="leise">${esc(n.art)}</div></td><td>${zahl(n.mm, 2)} mm</td></tr>`).join("")}</table>
@@ -313,7 +321,7 @@ function seiteStricken(p) {
   const neu = (s.techniken || []).filter((t) => !fo.gesehen.includes(t)).map(technik).filter(Boolean);
   const wort = s.reihen ? "Reihe" : "Runde";
 
-  let mitte = "";
+  let feld = "", daumen = "";
   if (gesamt > 0 && !fertig) {
     const akt = liste ? liste[n] : null;
     let vorschau = "";
@@ -322,31 +330,35 @@ function seiteStricken(p) {
       if (k > n && !akt.zunahme) vorschau = `In ${k - n} ${k - n === 1 ? wort : wort + "n"}: ${liste[k].text}`;
       else if (n + 1 < gesamt) vorschau = `Danach: ${liste[n + 1].text}`;
     }
-    mitte = `<div class="zaehler">${n + 1}<small> / ${gesamt}</small></div><div class="leise">${wort}</div>
-      ${akt ? `<div class="jetzt ${akt.zunahme ? "aktion" : ""}">${esc(akt.text)}${akt.maschen ? `<div class="maschen">danach ${akt.maschen} M</div>` : ""}</div>` : `<div class="jetzt">${esc(s.titel)}</div>`}
-      ${vorschau ? `<p class="vorschau">${esc(vorschau)}</p>` : ""}
-      <div class="zaehl-knoepfe"><button class="knopf" data-zaehl="-1" ${n === 0 ? "disabled" : ""} aria-label="Eine ${wort} zurück">−1</button>
-      <button class="knopf primaer gross" data-zaehl="1">${wort} fertig</button></div>`;
+    feld = `<div class="zaehlfeld">
+      <div class="zaehler ${tick ? "tick" : ""}" aria-live="polite">${n + 1}<small> / ${gesamt}</small></div><div class="zaehler-wort">${wort}</div>
+      ${akt ? `<div class="jetzt ${akt.zunahme ? "aktion" : ""}">${esc(akt.text)}${akt.maschen ? `<div class="maschen">danach ${akt.maschen} M</div>` : ""}</div>` : ""}
+      ${vorschau ? `<p class="vorschau">${esc(vorschau)}</p>` : ""}</div>`;
+    daumen = `<div class="daumen"><div class="zaehl-knoepfe"><button class="knopf gross" data-zaehl="-1" ${n === 0 ? "disabled" : ""} aria-label="Eine ${wort} zurück">−1</button>
+      <button class="knopf primaer gross" data-zaehl="1">${wort} fertig</button></div></div>`;
   } else {
     const naechster = folge[fo.schritt + 1];
-    mitte = `${s.maschen ? `<div class="jetzt">Hast du jetzt <b>${s.maschen} M</b> auf der Nadel?${s.kontrolle ? `<div class="maschen">${esc(s.kontrolle)}</div>` : ""}</div>` : ""}
-      ${naechster ? `<p class="vorschau">Als Nächstes: ${esc(naechster.abschnitt)} – ${esc(naechster.titel)}</p>` : ""}
-      <div class="leiste">${s.maschen ? `<button class="knopf" data-aktion="falsch">Nein</button>` : ""}
-      <button class="knopf primaer gross" data-aktion="weiter">${naechster ? (s.maschen ? "Ja, weiter" : "Erledigt, weiter") : "Pulli fertig!"}</button></div>`;
+    feld = s.maschen || naechster ? `<div class="zaehlfeld">
+      ${s.maschen ? `<div class="jetzt">Hast du jetzt ${s.maschen} M auf der Nadel?${s.kontrolle ? `<div class="maschen">${esc(s.kontrolle)}</div>` : ""}</div>` : ""}
+      ${naechster ? `<p class="vorschau">Als Nächstes: ${esc(naechster.titel)} (${esc(naechster.abschnitt)})</p>` : ""}</div>` : "";
+    daumen = `<div class="daumen"><div class="zaehl-knoepfe" ${s.maschen ? "" : 'style="grid-template-columns:1fr"'}>${s.maschen ? `<button class="knopf gross" data-aktion="falsch">Nein</button>` : ""}
+      <button class="knopf primaer gross" data-aktion="weiter">${naechster ? (s.maschen ? "Ja, weiter" : "Erledigt, weiter") : "Pulli fertig!"}</button></div></div>`;
   }
+  tick = false;
 
   app.innerHTML = `${nav(p, "stricken")}<div class="strick">
-    <div class="ort">${esc(s.abschnitt)} · Schritt ${fo.schritt + 1} von ${folge.length}</div>
-    <div class="balken"><i style="width:${runden((fo.schritt / folge.length) * 100)}%"></i></div>
-    <h1>${esc(s.titel)}</h1>
-    ${neu.length ? `<div class="neu"><b>Neu für dich:</b> ${neu.map((t) => `<p><b>${esc(t.name)}</b>: ${esc(t.erklaerung)}</p>`).join("")}
+    <div class="strick-kopf"><div class="strick-ort"><span>${esc(s.abschnitt)}</span><span>Schritt ${fo.schritt + 1} von ${folge.length}</span></div>
+    ${maschenreihe(fo.schritt / folge.length, "Fortschritt am ganzen Pulli")}
+    <h1>${esc(s.titel)}</h1></div>
+    ${neu.length ? `<div class="neu"><b>Neu für dich</b>${neu.map((t) => `<p><b>${esc(t.name)}:</b> ${esc(t.erklaerung)}</p>`).join("")}
       <button class="knopf" data-aktion="verstanden">Verstanden</button></div>` : ""}
+    ${feld}
     <p class="text">${esc(s.anweisung)}</p>
-    ${mitte}
     ${(s.techniken || []).length ? `<div class="technik-chips">${s.techniken.map((t) => `<button class="chip" data-technik="${t}">${esc(technik(t)?.name ?? t)}</button>`).join("")}</div>` : ""}
     <details><summary>Notiz zu diesem Schritt</summary><textarea data-notiz="${s.id}" placeholder="z. B. 2 Runden mehr gestrickt">${esc(p.notizen[s.id] || "")}</textarea></details>
-    <div class="leiste"><button class="knopf" data-schritt="-1" ${fo.schritt === 0 ? "disabled" : ""}>Vorheriger Schritt</button>
-    <button class="knopf" data-schritt="1" ${fo.schritt >= folge.length - 1 ? "disabled" : ""}>Nächster Schritt</button></div></div>`;
+    <div class="schritt-wechsel"><button class="knopf" data-schritt="-1" ${fo.schritt === 0 ? "disabled" : ""}>Vorheriger Schritt</button>
+    <button class="knopf" data-schritt="1" ${fo.schritt >= folge.length - 1 ? "disabled" : ""}>Nächster Schritt</button></div>
+    ${daumen}</div>`;
   bildschirmAn();
 }
 
@@ -362,6 +374,7 @@ function route() {
   if (!p) seiteStart();
   else ({ idee: seiteIdee, schnitt: seiteSchnitt, groesse: seiteGroesse, probe: seiteProbe, anleitung: seiteAnleitung, stricken: seiteStricken }[seite] || seiteIdee)(p);
   if (route.letzte === location.hash) window.scrollTo(0, y); else { window.scrollTo(0, 0); app.focus({ preventScroll: true }); }
+  document.querySelector(".schritte-nav [aria-current]")?.scrollIntoView({ inline: "center", block: "nearest" });
   route.letzte = location.hash;
   if (seite !== "stricken" && wakeLock) { wakeLock.release(); wakeLock = null; }
 }
@@ -381,7 +394,7 @@ app.addEventListener("click", (ev) => {
   if (d.wunsch) { p.auswahl[d.wunsch] = p.auswahl[d.wunsch] === d.wert ? undefined : d.wert; if (d.wunsch === "musterOrt" && d.wert === "nirgends") p.auswahl.musterArt = undefined; }
   else if (d.konstruktion) p.konstruktion = d.konstruktion;
   else if (d.modus) { p.groesse.modus = d.modus; }
-  else if (d.zaehl) { const s = strickfolge(berechne(p))[p.fortschritt.schritt]; p.fortschritt.zaehler[s.id] = Math.max(0, (p.fortschritt.zaehler[s.id] || 0) + Number(d.zaehl)); }
+  else if (d.zaehl) { tick = d.zaehl === "1"; const s = strickfolge(berechne(p))[p.fortschritt.schritt]; p.fortschritt.zaehler[s.id] = Math.max(0, (p.fortschritt.zaehler[s.id] || 0) + Number(d.zaehl)); }
   else if (d.schritt) { p.fortschritt.schritt = Math.max(0, p.fortschritt.schritt + Number(d.schritt)); }
   else if (d.aktion === "verstanden") { const s = strickfolge(berechne(p))[p.fortschritt.schritt]; p.fortschritt.gesehen.push(...(s.techniken || [])); }
   else if (d.aktion === "weiter") {

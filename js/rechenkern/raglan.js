@@ -5,6 +5,7 @@ import { fertigmasse, easeKontrolle } from "./masse.js";
 
 const finde = (liste, id) => liste.find((x) => x.id === id);
 const mm = (x) => `${String(x).replace(".", ",")} mm`;
+const dez = (x, stellen = 1) => x.toFixed(stellen).replace(".", ",");
 
 /** Kandidat in der Nähe von ziel, der die Bedingung erfüllt; bei Gleichstand der größere. */
 function naechster(ziel, ok, spielraum = 3) {
@@ -161,7 +162,7 @@ export function berechneRaglan(daten, e) {
     });
     zeilen.push({ nr: zeilen.length + 1, text: "Re bis zum Rundenbeginn, dabei DM als 1 M stricken." });
     add({ abschnitt: "Nackenerhöhung", titel: `Verkürzte Reihen (${paare} Paare)`,
-      anweisung: `Hinten werden ${2 * paare} Reihen extra gestrickt, das hebt den Nacken um ca. ${erhoehungCm.toFixed(1)} cm. Die restlichen DM werden in der 1. Passenrunde abgestrickt.`,
+      anweisung: `Hinten werden ${2 * paare} Reihen extra gestrickt, das hebt den Nacken um ca. ${dez(erhoehungCm)} cm. Die restlichen DM werden in der 1. Passenrunde abgestrickt.`,
       techniken: ["verkuerzteReihen"], reihen: zeilen, maschen: H });
   }
 
@@ -183,7 +184,7 @@ export function berechneRaglan(daten, e) {
     techniken: ["maschenStilllegen", "aufstrickAnschlag"], maschen: KK, kontrolle: `Körper = ${KK} M (${(KK / m).toFixed(0)} cm)` });
 
   add({ abschnitt: "Körper", titel: "Glatt rechts",
-    anweisung: `${koerperGlattRd} Rd glatt rechts (${(koerperGlattRd / r).toFixed(1)} cm). Zwischendurch anprobieren: Länge ab Achsel soll am Ende ${(koerperAbAchsel - saumH).toFixed(1)} cm sein.`,
+    anweisung: `${koerperGlattRd} Rd glatt rechts (${dez(koerperGlattRd / r)} cm). Zwischendurch anprobieren: Länge ab Achsel soll am Ende ${dez(koerperAbAchsel - saumH)} cm sein.`,
     techniken: ["rechteMasche"], zaehlen: koerperGlattRd, maschen: KK });
   const saumAbn = KK - saumM;
   add({ abschnitt: "Körper", titel: "Saumbündchen",
