@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { lineSum, formrunden, verteilenRund, abnahmeText, planText, gerade } from "../js/rechenkern/grundlagen.js";
-import { standardMasse } from "../js/rechenkern/masse.js";
+import { standardMasse, raglantiefe } from "../js/rechenkern/masse.js";
 import { berechneRaglan } from "../js/rechenkern/raglan.js";
 import { auswerten } from "../js/regeln.js";
 
@@ -26,8 +26,8 @@ test("Line-Sum-Formel: Beispiel KC Guild (90 Reihen, 70 → 100 M)", () => {
 test("Gleichmäßig verteilen: Segmente ergeben die Maschenzahl", () => {
   const seg = verteilenRund(37, 3);
   assert.equal(seg.reduce((a, b) => a + b, 0), 37);
-  assert.equal(abnahmeText(seg), "10 M re, 2 M re zus, 11 M re, 2 M re zus, 10 M re, 2 M re zus");
-  assert.equal(abnahmeText([12, 12, 13]), "(10 M re, 2 M re zus) 2×, 11 M re, 2 M re zus");
+  assert.equal(abnahmeText(seg), "10 M re, 2 M re zusstr., 11 M re, 2 M re zusstr., 10 M re, 2 M re zusstr.");
+  assert.equal(abnahmeText([12, 12, 13]), "(10 M re, 2 M re zusstr.) 2×, 11 M re, 2 M re zusstr.");
 });
 
 test("Gerade runden", () => {
@@ -51,6 +51,7 @@ test("Testpulli Raglan Damen M: alle Zahlen wie in der Notiz", () => {
     masse, tabelle: "damen", passform: tf.eingabe.passform, laenge: "huefte",
     maschenprobe: { m10: tf.eingabe.maschen10cm, r10: tf.eingabe.runden10cm, rippen10: tf.eingabe.rippenMaschen10cm },
     nadelMm: 4.0, garnklasse: 3, nackenerhoehung: true,
+    raglantiefeCm: 18.25, // alte Regel (Raglantiefe = Armlochtiefe), siehe testfallEigen.hinweis
   });
   const z = erg.zahlen, w = tf.erwartet;
   assert.equal(z.K, w.K);
@@ -112,4 +113,27 @@ test("Regeln: Negation und Mindestwerte", () => {
 
 test("planText", () => {
   assert.equal(planText({ plan: [{ anzahl: 2, abstand: 4 }], schluss: 0 }), "2× in jeder 4. Rd");
+});
+
+test("Raglantiefe = Armlochtiefe + 4 cm Schulterschräge + 1,5 cm Zugabe", () => {
+  const masse = standardMasse(daten, "damen", "M");
+  assert.equal(raglantiefe(daten, masse), 18.25 + 4 + 1.5);
+});
+
+test("Deutsche Größen 32–54: vollständig, Brust wächst, alle rechnen ohne Fehler", () => {
+  const t = daten.groessen.tabellen.deutsch;
+  assert.deepEqual(t.groessen, ["32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54"]);
+  for (const werte of Object.values(t["maße"])) assert.equal(werte.length, t.groessen.length);
+  let vorher = 0;
+  for (const g of t.groessen) {
+    const masse = { ...standardMasse(daten, "deutsch", g), handgelenk: 16 };
+    assert.ok(masse.brust > vorher); vorher = masse.brust;
+    for (const passform of ["eng", "klassisch", "locker", "oversized"]) {
+      const erg = berechneRaglan(daten, {
+        masse, tabelle: "deutsch", passform, laenge: "huefte",
+        maschenprobe: { m10: 22, r10: 28, rippen10: 24 }, nadelMm: 4.5, garnklasse: 3, nackenerhoehung: true,
+      });
+      assert.ok(erg.koerperAbAchsel > 15, `${g} ${passform}: Körper ab Achsel ${erg.koerperAbAchsel}`);
+    }
+  }
 });

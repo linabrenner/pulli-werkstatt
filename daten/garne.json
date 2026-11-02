@@ -3,7 +3,11 @@
     "beschreibung": "Garnklassen (CYC 0–7), Näherungswerte für Lauflänge/WPI und Fasereigenschaften",
     "quelle": "01 Material und Werkzeug",
     "stand": "2026-11-01",
-    "einheiten": { "maschenprobe": "Maschen auf 10 cm, glatt rechts", "nadel": "mm", "lauflaenge": "m pro 100 g" },
+    "einheiten": {
+      "maschenprobe": "Maschen auf 10 cm, glatt rechts",
+      "nadel": "mm",
+      "lauflaenge": "m pro 100 g"
+    },
     "hinweise": [
       "Garnklasse liefert nur Vorschlagswerte. Maßgeblich für alle Berechnungen ist die eigene, gewaschene Maschenprobe.",
       "CYC misst auf 4 inch (10,16 cm); hier wie in der Praxis mit 10 cm gleichgesetzt.",
@@ -11,36 +15,411 @@
     ]
   },
   "garnklassen": [
-    { "id": 0, "name": "Lace", "bezeichnungen": ["Lace", "Fingering 10-count"], "maschen10cm": { "min": 33, "max": 40 }, "nadelMm": { "min": 1.5, "max": 2.25 }, "nadelUs": "000–1", "hinweis": "Immer Maschenprobe der Anleitung befolgen, Lace wird oft mit viel dickeren Nadeln gestrickt." },
-    { "id": 1, "name": "Super Fine", "bezeichnungen": ["Sock", "Fingering", "Baby", "4 ply (UK)"], "maschen10cm": { "min": 27, "max": 32 }, "nadelMm": { "min": 2.25, "max": 3.25 }, "nadelUs": "1–3" },
-    { "id": 2, "name": "Fine", "bezeichnungen": ["Sport", "Baby", "5 ply"], "maschen10cm": { "min": 23, "max": 26 }, "nadelMm": { "min": 3.25, "max": 3.75 }, "nadelUs": "3–5" },
-    { "id": 3, "name": "Light", "bezeichnungen": ["DK", "Light Worsted", "8 ply"], "maschen10cm": { "min": 21, "max": 24 }, "nadelMm": { "min": 3.75, "max": 4.5 }, "nadelUs": "5–7" },
-    { "id": 4, "name": "Medium", "bezeichnungen": ["Worsted", "Afghan", "Aran", "10 ply"], "maschen10cm": { "min": 16, "max": 20 }, "nadelMm": { "min": 4.5, "max": 5.5 }, "nadelUs": "7–9" },
-    { "id": 5, "name": "Bulky", "bezeichnungen": ["Chunky", "Craft", "Rug", "12 ply"], "maschen10cm": { "min": 12, "max": 15 }, "nadelMm": { "min": 5.5, "max": 8 }, "nadelUs": "9–11" },
-    { "id": 6, "name": "Super Bulky", "bezeichnungen": ["Super Bulky", "Roving", "14 ply"], "maschen10cm": { "min": 7, "max": 11 }, "nadelMm": { "min": 8, "max": 12.75 }, "nadelUs": "11–17" },
-    { "id": 7, "name": "Jumbo", "bezeichnungen": ["Jumbo", "Roving"], "maschen10cm": { "min": null, "max": 6 }, "nadelMm": { "min": 12.75, "max": null }, "nadelUs": "17+" }
+    {
+      "id": 0,
+      "name": "Lace",
+      "bezeichnungen": [
+        "Lace",
+        "Fingering 10-count"
+      ],
+      "maschen10cm": {
+        "min": 33,
+        "max": 40
+      },
+      "nadelMm": {
+        "min": 1.5,
+        "max": 2.25
+      },
+      "nadelUs": "000–1",
+      "hinweis": "Immer Maschenprobe der Anleitung befolgen, Lace wird oft mit viel dickeren Nadeln gestrickt."
+    },
+    {
+      "id": 1,
+      "name": "Super Fine",
+      "bezeichnungen": [
+        "Sock",
+        "Fingering",
+        "Baby",
+        "4 ply (UK)"
+      ],
+      "maschen10cm": {
+        "min": 27,
+        "max": 32
+      },
+      "nadelMm": {
+        "min": 2.25,
+        "max": 3.25
+      },
+      "nadelUs": "1–3"
+    },
+    {
+      "id": 2,
+      "name": "Fine",
+      "bezeichnungen": [
+        "Sport",
+        "Baby",
+        "5 ply"
+      ],
+      "maschen10cm": {
+        "min": 23,
+        "max": 26
+      },
+      "nadelMm": {
+        "min": 3.25,
+        "max": 3.75
+      },
+      "nadelUs": "3–5"
+    },
+    {
+      "id": 3,
+      "name": "Light",
+      "bezeichnungen": [
+        "DK",
+        "Light Worsted",
+        "8 ply"
+      ],
+      "maschen10cm": {
+        "min": 21,
+        "max": 24
+      },
+      "nadelMm": {
+        "min": 3.75,
+        "max": 4.5
+      },
+      "nadelUs": "5–7"
+    },
+    {
+      "id": 4,
+      "name": "Medium",
+      "bezeichnungen": [
+        "Worsted",
+        "Afghan",
+        "Aran",
+        "10 ply"
+      ],
+      "maschen10cm": {
+        "min": 16,
+        "max": 20
+      },
+      "nadelMm": {
+        "min": 4.5,
+        "max": 5.5
+      },
+      "nadelUs": "7–9"
+    },
+    {
+      "id": 5,
+      "name": "Bulky",
+      "bezeichnungen": [
+        "Chunky",
+        "Craft",
+        "Rug",
+        "12 ply"
+      ],
+      "maschen10cm": {
+        "min": 12,
+        "max": 15
+      },
+      "nadelMm": {
+        "min": 5.5,
+        "max": 8
+      },
+      "nadelUs": "9–11"
+    },
+    {
+      "id": 6,
+      "name": "Super Bulky",
+      "bezeichnungen": [
+        "Super Bulky",
+        "Roving",
+        "14 ply"
+      ],
+      "maschen10cm": {
+        "min": 7,
+        "max": 11
+      },
+      "nadelMm": {
+        "min": 8,
+        "max": 12.75
+      },
+      "nadelUs": "11–17"
+    },
+    {
+      "id": 7,
+      "name": "Jumbo",
+      "bezeichnungen": [
+        "Jumbo",
+        "Roving"
+      ],
+      "maschen10cm": {
+        "min": null,
+        "max": 6
+      },
+      "nadelMm": {
+        "min": 12.75,
+        "max": null
+      },
+      "nadelUs": "17+"
+    }
   ],
   "lauflaengeNaeherung": {
     "_hinweis": "Grobe Orientierung zum Einordnen unbekannter Garne. Quellen widersprechen sich; WPI hängt von der Wickelspannung ab, Lauflänge von der Faser.",
     "unsicher": true,
     "werte": [
-      { "klasse": "Lace", "garnklasse": 0, "ply": "1–3 ply", "wpi": { "min": 18, "max": 30 }, "m100g": { "min": 525, "max": null } },
-      { "klasse": "Fingering", "garnklasse": 1, "ply": "4 ply", "wpi": { "min": 14, "max": 22 }, "m100g": { "min": 360, "max": 480 } },
-      { "klasse": "Sport", "garnklasse": 2, "ply": "5 ply", "wpi": { "min": 12, "max": 18 }, "m100g": { "min": 260, "max": 360 } },
-      { "klasse": "DK", "garnklasse": 3, "ply": "8 ply", "wpi": { "min": 11, "max": 15 }, "m100g": { "min": 200, "max": 290 } },
-      { "klasse": "Worsted/Aran", "garnklasse": 4, "ply": "10 ply", "wpi": { "min": 8, "max": 12 }, "m100g": { "min": 180, "max": 240 } },
-      { "klasse": "Bulky/Chunky", "garnklasse": 5, "ply": "12 ply", "wpi": { "min": 6, "max": 9 }, "m100g": { "min": 120, "max": 160 } },
-      { "klasse": "Super Bulky", "garnklasse": 6, "ply": "14 ply", "wpi": { "min": 5, "max": 6 }, "m100g": { "min": null, "max": 120 } }
+      {
+        "klasse": "Lace",
+        "garnklasse": 0,
+        "ply": "1–3 ply",
+        "wpi": {
+          "min": 18,
+          "max": 30
+        },
+        "m100g": {
+          "min": 525,
+          "max": null
+        }
+      },
+      {
+        "klasse": "Fingering",
+        "garnklasse": 1,
+        "ply": "4 ply",
+        "wpi": {
+          "min": 14,
+          "max": 22
+        },
+        "m100g": {
+          "min": 360,
+          "max": 480
+        }
+      },
+      {
+        "klasse": "Sport",
+        "garnklasse": 2,
+        "ply": "5 ply",
+        "wpi": {
+          "min": 12,
+          "max": 18
+        },
+        "m100g": {
+          "min": 260,
+          "max": 360
+        }
+      },
+      {
+        "klasse": "DK",
+        "garnklasse": 3,
+        "ply": "8 ply",
+        "wpi": {
+          "min": 11,
+          "max": 15
+        },
+        "m100g": {
+          "min": 200,
+          "max": 290
+        }
+      },
+      {
+        "klasse": "Worsted/Aran",
+        "garnklasse": 4,
+        "ply": "10 ply",
+        "wpi": {
+          "min": 8,
+          "max": 12
+        },
+        "m100g": {
+          "min": 180,
+          "max": 240
+        }
+      },
+      {
+        "klasse": "Bulky/Chunky",
+        "garnklasse": 5,
+        "ply": "12 ply",
+        "wpi": {
+          "min": 6,
+          "max": 9
+        },
+        "m100g": {
+          "min": 120,
+          "max": 160
+        }
+      },
+      {
+        "klasse": "Super Bulky",
+        "garnklasse": 6,
+        "ply": "14 ply",
+        "wpi": {
+          "min": 5,
+          "max": 6
+        },
+        "m100g": {
+          "min": null,
+          "max": 120
+        }
+      }
     ]
   },
   "fasern": [
-    { "id": "wolle", "name": "Wolle (inkl. Merino)", "elastizitaet": "hoch", "fall": "mittel", "waerme": "hoch", "pflege": "kann verfilzen", "hinweise": ["Standardfall für Ease-Tabellen"] },
-    { "id": "superwash", "name": "Superwash-Wolle", "elastizitaet": "mittel", "fall": "stark", "waerme": "hoch", "pflege": "maschinenwaschbar", "hinweise": ["Kann nass deutlich wachsen: Maschenprobe unbedingt waschen"] },
-    { "id": "alpaka", "name": "Alpaka", "elastizitaet": "gering", "fall": "stark", "waerme": "sehr hoch", "pflege": "wenig Lanolin", "hinweise": ["Neigt zum Längen: eher etwas weniger Länge planen"] },
-    { "id": "baumwolle", "name": "Baumwolle", "elastizitaet": "sehr gering", "fall": "mittel bis stark", "waerme": "gering", "pflege": "waschbar, kann leiern", "hinweise": ["Weniger negative Ease sinnvoll", "Bündchen leiern aus"] },
-    { "id": "leinen", "name": "Leinen", "elastizitaet": "keine", "fall": "wird weicher", "waerme": "kühl", "pflege": "wird mit jeder Wäsche weicher", "hinweise": ["Fertigmaß ändert sich mit Gebrauch"] },
-    { "id": "seide", "name": "Seide", "elastizitaet": "gering, dehnt sich", "fall": "stark", "waerme": "mittel", "pflege": "als Reinfaser verzugsanfällig", "hinweise": ["Meist in Mischungen"] },
-    { "id": "acryl", "name": "Acryl", "elastizitaet": "mittel", "fall": "mittel", "waerme": "mittel, wenig atmungsaktiv", "pflege": "pflegeleicht, filzt nicht", "hinweise": [] },
-    { "id": "mischung", "name": "Mischgarn", "elastizitaet": "je nach Anteil", "fall": "je nach Anteil", "waerme": "je nach Anteil", "pflege": "je nach Anteil", "hinweise": ["Baumwolle wird oft mit Wolle/Acryl gemischt, um Elastizität zu ergänzen"] }
-  ]
+    {
+      "id": "wolle",
+      "name": "Wolle (inkl. Merino)",
+      "elastizitaet": "hoch",
+      "fall": "mittel",
+      "waerme": "hoch",
+      "pflege": "kann verfilzen",
+      "hinweise": [
+        "Standardfall für Ease-Tabellen"
+      ]
+    },
+    {
+      "id": "superwash",
+      "name": "Superwash-Wolle",
+      "elastizitaet": "mittel",
+      "fall": "stark",
+      "waerme": "hoch",
+      "pflege": "maschinenwaschbar",
+      "hinweise": [
+        "Kann nass deutlich wachsen: Maschenprobe unbedingt waschen"
+      ]
+    },
+    {
+      "id": "alpaka",
+      "name": "Alpaka",
+      "elastizitaet": "gering",
+      "fall": "stark",
+      "waerme": "sehr hoch",
+      "pflege": "wenig Lanolin",
+      "hinweise": [
+        "Neigt zum Längen: eher etwas weniger Länge planen"
+      ]
+    },
+    {
+      "id": "baumwolle",
+      "name": "Baumwolle",
+      "elastizitaet": "sehr gering",
+      "fall": "mittel bis stark",
+      "waerme": "gering",
+      "pflege": "waschbar, kann leiern",
+      "hinweise": [
+        "Weniger negative Ease sinnvoll",
+        "Bündchen leiern aus"
+      ]
+    },
+    {
+      "id": "leinen",
+      "name": "Leinen",
+      "elastizitaet": "keine",
+      "fall": "wird weicher",
+      "waerme": "kühl",
+      "pflege": "wird mit jeder Wäsche weicher",
+      "hinweise": [
+        "Fertigmaß ändert sich mit Gebrauch"
+      ]
+    },
+    {
+      "id": "seide",
+      "name": "Seide",
+      "elastizitaet": "gering, dehnt sich",
+      "fall": "stark",
+      "waerme": "mittel",
+      "pflege": "als Reinfaser verzugsanfällig",
+      "hinweise": [
+        "Meist in Mischungen"
+      ]
+    },
+    {
+      "id": "acryl",
+      "name": "Acryl",
+      "elastizitaet": "mittel",
+      "fall": "mittel",
+      "waerme": "mittel, wenig atmungsaktiv",
+      "pflege": "pflegeleicht, filzt nicht",
+      "hinweise": []
+    },
+    {
+      "id": "mischung",
+      "name": "Mischgarn",
+      "elastizitaet": "je nach Anteil",
+      "fall": "je nach Anteil",
+      "waerme": "je nach Anteil",
+      "pflege": "je nach Anteil",
+      "hinweise": [
+        "Baumwolle wird oft mit Wolle/Acryl gemischt, um Elastizität zu ergänzen"
+      ]
+    }
+  ],
+  "dropsGarngruppen": {
+    "_hinweis": "Im deutschsprachigen Raum verbreitet (Garnstudio/DROPS). Werte laut Suchauszügen der Garnstudio-Seiten, die Seite selbst war gesperrt.",
+    "unsicher": true,
+    "gruppen": [
+      {
+        "gruppe": "A",
+        "maschen10cm": [
+          23,
+          26
+        ],
+        "entsprichtCyc": [
+          1,
+          2
+        ]
+      },
+      {
+        "gruppe": "B",
+        "maschen10cm": [
+          20,
+          22
+        ],
+        "entsprichtCyc": [
+          3
+        ]
+      },
+      {
+        "gruppe": "C",
+        "maschen10cm": [
+          16,
+          19
+        ],
+        "entsprichtCyc": [
+          4
+        ]
+      },
+      {
+        "gruppe": "D",
+        "maschen10cm": [
+          12,
+          15
+        ],
+        "entsprichtCyc": [
+          5
+        ]
+      },
+      {
+        "gruppe": "E",
+        "maschen10cm": [
+          9,
+          11
+        ],
+        "entsprichtCyc": [
+          6
+        ]
+      },
+      {
+        "gruppe": "F",
+        "maschen10cm": [
+          5,
+          8
+        ],
+        "entsprichtCyc": [
+          6,
+          7
+        ]
+      }
+    ]
+  },
+  "etikettDeutsch": {
+    "lauflaenge": "Lauflänge (LL) wird auf deutschen Etiketten meist pro 50 g angegeben, z. B. „LL ca. 160 m/50 g“.",
+    "maschenprobe": "Maschenprobe als „22 M und 28 R/Rd glatt re mit Nd. Nr. 4,5 = 10 × 10 cm“.",
+    "nadel": "Nadelstärke als „Nd. Nr. 4,5“ (mm).",
+    "quelle": "Lana Grossa / Landlust 01/24"
+  }
 }

@@ -157,10 +157,10 @@ export function berechneRaglan(daten, e) {
   if (paare > 0) {
     const zeilen = [];
     wendestellen.forEach((w, j) => {
-      zeilen.push({ nr: 2 * j + 1, text: `Hinr: re bis ${w} M nach dem Rundenbeginn, wenden, DM.` });
-      zeilen.push({ nr: 2 * j + 2, text: `Rückr: li bis ${w} M nach dem Rundenbeginn auf der anderen Seite, wenden, DM.` });
+      zeilen.push({ nr: 2 * j + 1, text: `Hin-R: re bis ${w} M nach dem Rd-Übergang str., wenden, DM arb.` });
+      zeilen.push({ nr: 2 * j + 2, text: `Rück-R: li bis ${w} M nach dem Rd-Übergang auf der anderen Seite str., wenden, DM arb.` });
     });
-    zeilen.push({ nr: zeilen.length + 1, text: "Re bis zum Rundenbeginn, dabei DM als 1 M stricken." });
+    zeilen.push({ nr: zeilen.length + 1, text: "Re bis zum Rd-Übergang str., dabei die DM wie 1 M str." });
     add({ abschnitt: "Nackenerhöhung", titel: `Verkürzte Reihen (${paare} Paare)`,
       anweisung: `Hinten werden ${2 * paare} Reihen extra gestrickt, das hebt den Nacken um ca. ${dez(erhoehungCm)} cm. Die restlichen DM werden in der 1. Passenrunde abgestrickt.`,
       techniken: ["verkuerzteReihen"], reihen: zeilen, maschen: H });
@@ -175,7 +175,7 @@ export function berechneRaglan(daten, e) {
     passeRunden.push({ nr: rd, text, maschen: summe, zunahme: k || a });
   }
   add({ abschnitt: "Passe", titel: `Raglan-Zunahmen (${Y} Rd)`,
-    anweisung: `Körper: an jedem der 4 MM auf der Seite von Rücken bzw. Vorderteil zunehmen, vor dem MM M1R, nach dem MM M1L. Ärmel: nach dem ersten Ärmel-MM M1L, vor dem zweiten M1R.\nKörper: ${planText(planK)}.\nÄrmel: ${planText(planA)}.`,
+    anweisung: `1 M zun. = aus dem Querfaden 1 M re verschränkt herausstr., vor dem MM rechts geneigt (M1R), nach dem MM links geneigt (M1L).\nVorder- und Rückenteil: an jedem der 4 MM auf der Seite von Vorder- bzw. Rückenteil 1 M zun.\nÄrmel: nach dem 1. Ärmel-MM und vor dem 2. Ärmel-MM je 1 M zun.\nVorder- und Rückenteil: ${planText(planK)}.\nÄrmel: ${planText(planA)}.`,
     techniken: ["m1r", "m1l", "markierer"], runden: passeRunden, maschen: summe,
     kontrolle: `Rücken ${FB}, Vorderteil ${FB}, Ärmel je ${aZiel} = ${summe} M` });
 
@@ -197,7 +197,7 @@ export function berechneRaglan(daten, e) {
   for (let rd = 1; rd <= geradeObenRd + rAb; rd++) {
     const ab = rd > geradeObenRd && abRunden.has(rd - geradeObenRd);
     if (ab) am -= 2;
-    aermelRunden.push({ nr: rd, text: ab ? "Abnahmerunde: 1 M re, ssk, re bis 3 M vor Rundenende, 2 M re zus, 1 M re (−2 M)" : "Runde ohne Abnahme", maschen: am, zunahme: ab });
+    aermelRunden.push({ nr: rd, text: ab ? "Abnahmerunde: 1 M re, 2 M re überz. zusstr., re bis 3 M vor dem Rd-Übergang, 2 M re zusstr., 1 M re (−2 M)" : "Runde ohne Abnahme", maschen: am, zunahme: ab });
   }
   add({ abschnitt: "Ärmel (2×)", titel: "Maschen aufnehmen",
     anweisung: `${aZiel} stillgelegte M auf ${mm(e.nadelMm)} nehmen, aus dem Achselanschlag ${U} M aufnehmen, Rundenbeginn in der Achselmitte.`,

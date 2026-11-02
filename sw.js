@@ -1,6 +1,6 @@
 // Offline-Betrieb: alle App-Dateien beim ersten Öffnen zwischenspeichern.
 // Bei jeder neuen Version VERSION hochzählen, dann holt sich die App beim nächsten Öffnen die neuen Dateien.
-const VERSION = "v2";
+const VERSION = "v3";
 const DATEIEN = [
   "./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "css/app.css",
   "js/app.js", "js/daten.js", "js/speicher.js", "js/regeln.js",

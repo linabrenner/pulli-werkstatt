@@ -79,7 +79,7 @@ export function abnahmeText(segmente) {
   }
   return teile
     .map(({ len, mal }) => {
-      const t = len - 2 > 0 ? `${len - 2} M re, 2 M re zus` : "2 M re zus";
+      const t = len - 2 > 0 ? `${len - 2} M re, 2 M re zusstr.` : "2 M re zusstr.";
       return mal > 1 ? `(${t}) ${mal}×` : t;
     })
     .join(", ");

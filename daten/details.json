@@ -75,18 +75,32 @@
     "hoeheCm": {
       "saum": {
         "standard": 5,
-        "unsicher": true
+        "unsicher": true,
+        "spanne": [
+          3,
+          5
+        ],
+        "quelle": "Lana Grossa / Landlust 01/24 (3 cm), Hobbii-Anleitung (5 cm)"
       },
       "aermel": {
         "standard": 5,
-        "unsicher": true
+        "unsicher": true,
+        "spanne": [
+          3,
+          5
+        ],
+        "quelle": "Lana Grossa / Landlust 01/24 (3 cm)"
       },
       "hals": {
-        "standard": 2.5,
-        "unsicher": true
+        "standard": 3,
+        "spanne": [
+          2.5,
+          4
+        ],
+        "quelle": "Lana Grossa / Landlust 01/24 (3 cm); Rico KA00820 (4 cm, umgeschlagen)"
       }
     },
-    "_hinweisHoehe": "Bündchenhöhen sind eigene Startwerte, nicht recherchiert.",
+    "_hinweisHoehe": "Hals 3 cm nach deutscher Verlagsanleitung; Saum und Ärmel 5 cm bleiben Startwert innerhalb der gefundenen Spanne 3–5 cm.",
     "arten": [
       "rippen1x1",
       "rippen2x2",
@@ -194,7 +208,20 @@
       "unsicher": true,
       "hinweis": "Eigener Startwert: Darüber Nadelwechsel vorschlagen."
     },
-    "nadelwechselMm": 0.5
+    "nadelwechselMm": 0.5,
+    "reihenJeMasche": {
+      "standard": 1.35,
+      "spanne": [
+        1.27,
+        1.45
+      ],
+      "quellen": [
+        "Purl Soho: Faustregel 3 M : 4 R (≈ 1,33) für mittlere Garne",
+        "Lana Grossa/Landlust: 22 M × 28 Rd (1,27)",
+        "DROPS-Beispiel 21 × 28 (1,33)"
+      ],
+      "hinweis": "Nur zum Schätzen ohne eigene Probe."
+    }
   },
   "maschenAufnehmen": {
     "senkrechteKante": {

@@ -8,21 +8,68 @@
       "Werte als {min, max}. Wo die Quelle einen Einzelwert nennt, ist min = max.",
       "Für die Berechnung den Mittelwert der Spanne verwenden, sofern keine eigenen Maße vorliegen.",
       "Jede Größe aus ihren eigenen Maßen neu berechnen, nicht linear graden.",
-      "Hals, Handgelenk, Oberbrust und Schulterschräge fehlen im CYC-Standard."
+      "Hals, Handgelenk, Oberbrust und Schulterschräge fehlen im CYC-Standard.",
+      "Standard in der App sind die deutschen Konfektionsgrößen (tabellen.deutsch); CYC-Größen bleiben als internationale Alternative."
     ]
   },
   "messpunkte": [
-    { "id": "brust", "name": "Brust/Oberweite", "anleitung": "An der stärksten Stelle messen, Maßband nicht straff ziehen." },
-    { "id": "nackenHandgelenk", "name": "Rückenmitte Nacken bis Handgelenk", "anleitung": "Arm gestreckt; vom Nackenansatz über die Schulter bis zum Handgelenk." },
-    { "id": "rueckenlaengeTaille", "name": "Rückenlänge bis Taille", "anleitung": "Vom Nackenwirbel bis zur natürlichen Taille." },
-    { "id": "schulterbreite", "name": "Schulterbreite", "anleitung": "Hinten von Schulterkante zu Schulterkante." },
-    { "id": "armlaenge", "name": "Armlänge bis Achsel", "anleitung": "Arm leicht gebeugt, von der Achsel bis zum Handgelenk." },
-    { "id": "oberarm", "name": "Oberarm", "anleitung": "Weiteste Stelle über dem Ellbogen." },
-    { "id": "armlochtiefe", "name": "Armlochtiefe", "anleitung": "Von der oberen äußeren Schulterkante bis zur Achsel." },
-    { "id": "taille", "name": "Taille", "anleitung": "Schmalste Stelle der natürlichen Taille, meist knapp über dem Nabel." },
-    { "id": "huefte", "name": "Hüfte", "anleitung": "Weiteste Stelle der unteren Hüfte." },
-    { "id": "handgelenk", "name": "Handgelenk", "anleitung": "Um das Handgelenk messen.", "nichtImCyc": true },
-    { "id": "kopf", "name": "Kopfumfang", "anleitung": "Für den Kopfdurchlass bei Rollkragen und engem Rundhals.", "nichtImCyc": true }
+    {
+      "id": "brust",
+      "name": "Brust/Oberweite",
+      "anleitung": "An der stärksten Stelle messen, Maßband nicht straff ziehen."
+    },
+    {
+      "id": "nackenHandgelenk",
+      "name": "Rückenmitte Nacken bis Handgelenk",
+      "anleitung": "Arm gestreckt; vom Nackenansatz über die Schulter bis zum Handgelenk."
+    },
+    {
+      "id": "rueckenlaengeTaille",
+      "name": "Rückenlänge bis Taille",
+      "anleitung": "Vom Nackenwirbel bis zur natürlichen Taille."
+    },
+    {
+      "id": "schulterbreite",
+      "name": "Schulterbreite",
+      "anleitung": "Hinten von Schulterkante zu Schulterkante."
+    },
+    {
+      "id": "armlaenge",
+      "name": "Armlänge bis Achsel",
+      "anleitung": "Arm leicht gebeugt, von der Achsel bis zum Handgelenk."
+    },
+    {
+      "id": "oberarm",
+      "name": "Oberarm",
+      "anleitung": "Weiteste Stelle über dem Ellbogen."
+    },
+    {
+      "id": "armlochtiefe",
+      "name": "Armlochtiefe",
+      "anleitung": "Von der oberen äußeren Schulterkante bis zur Achsel."
+    },
+    {
+      "id": "taille",
+      "name": "Taille",
+      "anleitung": "Schmalste Stelle der natürlichen Taille, meist knapp über dem Nabel."
+    },
+    {
+      "id": "huefte",
+      "name": "Hüfte",
+      "anleitung": "Weiteste Stelle der unteren Hüfte."
+    },
+    {
+      "id": "handgelenk",
+      "name": "Handgelenk",
+      "anleitung": "Um das Handgelenk messen.",
+      "nichtImCyc": true
+    },
+    {
+      "id": "kopf",
+      "name": "Kopfumfang",
+      "anleitung": "Für den Kopfdurchlass bei Rollkragen und engem Rundhals.",
+      "nichtImCyc": true
+    }
   ],
   "messtipps": [
     "Am besten von einer anderen Person messen lassen.",
@@ -30,28 +77,547 @@
   ],
   "tabellen": {
     "damen": {
-      "groessen": ["XS", "S", "M", "L", "XL", "2X", "3X", "4X", "5X"],
+      "groessen": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2X",
+        "3X",
+        "4X",
+        "5X"
+      ],
       "maße": {
-        "brust": [[71, 76], [81, 86], [91.5, 96.5], [101.5, 106.5], [111.5, 117], [122, 127], [132, 137], [142, 147], [152, 158]],
-        "nackenHandgelenk": [[66, 68.5], [68.5, 70], [71, 72.5], [73.5, 75], [73.5, 75], [76.5, 77.5], [77.5, 79], [80, 81.5], [80, 81.5]],
-        "rueckenlaengeTaille": [[42, 42], [43, 43], [43.5, 43.5], [44.5, 44.5], [45, 45], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
-        "schulterbreite": [[35.5, 37], [37, 38], [39.5, 40.5], [42, 43], [44.5, 44.5], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
-        "armlaenge": [[42, 42], [43, 43], [43, 43], [44.5, 44.5], [44.5, 44.5], [45.5, 45.5], [45.5, 45.5], [47, 47], [47, 47]],
-        "oberarm": [[25, 25], [26, 26], [28, 28], [30.5, 30.5], [34.5, 34.5], [39.5, 39.5], [43, 43], [47, 47], [49.5, 49.5]],
-        "armlochtiefe": [[15.5, 16.5], [16.5, 17.5], [17.5, 19], [19, 20.5], [20.5, 21.5], [21.5, 23], [23, 24], [24, 25.5], [25.5, 26.5]],
-        "taille": [[58.5, 61], [63.5, 67.5], [71, 76], [81.5, 86.5], [91.5, 96.5], [101.5, 106.5], [111.5, 114], [116.5, 119], [124, 127]],
-        "huefte": [[83.5, 86], [89, 91.5], [96.5, 101.5], [106.5, 111.5], [116.5, 122], [132, 134.5], [137, 139.5], [142, 144.5], [155, 157]]
+        "brust": [
+          [
+            71,
+            76
+          ],
+          [
+            81,
+            86
+          ],
+          [
+            91.5,
+            96.5
+          ],
+          [
+            101.5,
+            106.5
+          ],
+          [
+            111.5,
+            117
+          ],
+          [
+            122,
+            127
+          ],
+          [
+            132,
+            137
+          ],
+          [
+            142,
+            147
+          ],
+          [
+            152,
+            158
+          ]
+        ],
+        "nackenHandgelenk": [
+          [
+            66,
+            68.5
+          ],
+          [
+            68.5,
+            70
+          ],
+          [
+            71,
+            72.5
+          ],
+          [
+            73.5,
+            75
+          ],
+          [
+            73.5,
+            75
+          ],
+          [
+            76.5,
+            77.5
+          ],
+          [
+            77.5,
+            79
+          ],
+          [
+            80,
+            81.5
+          ],
+          [
+            80,
+            81.5
+          ]
+        ],
+        "rueckenlaengeTaille": [
+          [
+            42,
+            42
+          ],
+          [
+            43,
+            43
+          ],
+          [
+            43.5,
+            43.5
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45,
+            45
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            47,
+            47
+          ],
+          [
+            47,
+            47
+          ]
+        ],
+        "schulterbreite": [
+          [
+            35.5,
+            37
+          ],
+          [
+            37,
+            38
+          ],
+          [
+            39.5,
+            40.5
+          ],
+          [
+            42,
+            43
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            47,
+            47
+          ],
+          [
+            47,
+            47
+          ]
+        ],
+        "armlaenge": [
+          [
+            42,
+            42
+          ],
+          [
+            43,
+            43
+          ],
+          [
+            43,
+            43
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            47,
+            47
+          ],
+          [
+            47,
+            47
+          ]
+        ],
+        "oberarm": [
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            30.5,
+            30.5
+          ],
+          [
+            34.5,
+            34.5
+          ],
+          [
+            39.5,
+            39.5
+          ],
+          [
+            43,
+            43
+          ],
+          [
+            47,
+            47
+          ],
+          [
+            49.5,
+            49.5
+          ]
+        ],
+        "armlochtiefe": [
+          [
+            15.5,
+            16.5
+          ],
+          [
+            16.5,
+            17.5
+          ],
+          [
+            17.5,
+            19
+          ],
+          [
+            19,
+            20.5
+          ],
+          [
+            20.5,
+            21.5
+          ],
+          [
+            21.5,
+            23
+          ],
+          [
+            23,
+            24
+          ],
+          [
+            24,
+            25.5
+          ],
+          [
+            25.5,
+            26.5
+          ]
+        ],
+        "taille": [
+          [
+            58.5,
+            61
+          ],
+          [
+            63.5,
+            67.5
+          ],
+          [
+            71,
+            76
+          ],
+          [
+            81.5,
+            86.5
+          ],
+          [
+            91.5,
+            96.5
+          ],
+          [
+            101.5,
+            106.5
+          ],
+          [
+            111.5,
+            114
+          ],
+          [
+            116.5,
+            119
+          ],
+          [
+            124,
+            127
+          ]
+        ],
+        "huefte": [
+          [
+            83.5,
+            86
+          ],
+          [
+            89,
+            91.5
+          ],
+          [
+            96.5,
+            101.5
+          ],
+          [
+            106.5,
+            111.5
+          ],
+          [
+            116.5,
+            122
+          ],
+          [
+            132,
+            134.5
+          ],
+          [
+            137,
+            139.5
+          ],
+          [
+            142,
+            144.5
+          ],
+          [
+            155,
+            157
+          ]
+        ]
       },
-      "unsicherheiten": ["Oberarm 4X und 5X sind in inch gleich (18½\"), in cm aber 47 und 49,5."]
+      "unsicherheiten": [
+        "Oberarm 4X und 5X sind in inch gleich (18½\"), in cm aber 47 und 49,5."
+      ]
     },
     "herren": {
-      "groessen": ["S", "M", "L", "XL", "2X", "3X", "4X", "5X"],
+      "groessen": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2X",
+        "3X",
+        "4X",
+        "5X"
+      ],
       "maße": {
-        "brust": [[86, 91.5], [96.5, 101.5], [106.5, 111.5], [116.5, 122], [127, 132], [137, 142], [147.5, 152], [157.5, 162.5]],
-        "nackenHandgelenk": [[81, 82.5], [83.5, 85], [86.5, 87.5], [89, 90], [91.5, 92.5], [94, 95], [96.5, 97.5], [99, 100.5]],
-        "rueckenlaengeHuefte": [[58.5, 61], [63.5, 66], [66, 68.5], [71, 71], [73.5, 73.5], [76, 76], [76, 76], [79, 79]],
-        "schulterbreite": [[39.5, 40.5], [42, 43], [44.5, 45.5], [45.5, 47], [48, 51], [48, 51], [51, 54.5], [56, 57]],
-        "armlaenge": [[45.5, 45.5], [47, 47], [49.5, 49.5], [50.5, 50.5], [52, 52], [52, 52], [49.5, 49.5], [53.5, 54.5]]
+        "brust": [
+          [
+            86,
+            91.5
+          ],
+          [
+            96.5,
+            101.5
+          ],
+          [
+            106.5,
+            111.5
+          ],
+          [
+            116.5,
+            122
+          ],
+          [
+            127,
+            132
+          ],
+          [
+            137,
+            142
+          ],
+          [
+            147.5,
+            152
+          ],
+          [
+            157.5,
+            162.5
+          ]
+        ],
+        "nackenHandgelenk": [
+          [
+            81,
+            82.5
+          ],
+          [
+            83.5,
+            85
+          ],
+          [
+            86.5,
+            87.5
+          ],
+          [
+            89,
+            90
+          ],
+          [
+            91.5,
+            92.5
+          ],
+          [
+            94,
+            95
+          ],
+          [
+            96.5,
+            97.5
+          ],
+          [
+            99,
+            100.5
+          ]
+        ],
+        "rueckenlaengeHuefte": [
+          [
+            58.5,
+            61
+          ],
+          [
+            63.5,
+            66
+          ],
+          [
+            66,
+            68.5
+          ],
+          [
+            71,
+            71
+          ],
+          [
+            73.5,
+            73.5
+          ],
+          [
+            76,
+            76
+          ],
+          [
+            76,
+            76
+          ],
+          [
+            79,
+            79
+          ]
+        ],
+        "schulterbreite": [
+          [
+            39.5,
+            40.5
+          ],
+          [
+            42,
+            43
+          ],
+          [
+            44.5,
+            45.5
+          ],
+          [
+            45.5,
+            47
+          ],
+          [
+            48,
+            51
+          ],
+          [
+            48,
+            51
+          ],
+          [
+            51,
+            54.5
+          ],
+          [
+            56,
+            57
+          ]
+        ],
+        "armlaenge": [
+          [
+            45.5,
+            45.5
+          ],
+          [
+            47,
+            47
+          ],
+          [
+            49.5,
+            49.5
+          ],
+          [
+            50.5,
+            50.5
+          ],
+          [
+            52,
+            52
+          ],
+          [
+            52,
+            52
+          ],
+          [
+            49.5,
+            49.5
+          ],
+          [
+            53.5,
+            54.5
+          ]
+        ]
       },
       "unsicherheiten": [
         "In der Quelle 'Back Waist Length' genannt, Werte passen aber zur Rückenlänge bis Hüfte; hier deshalb als rueckenlaengeHuefte geführt.",
@@ -61,35 +627,863 @@
       ]
     },
     "kinder": {
-      "groessen": ["2", "4", "6", "8", "10", "12", "14", "16"],
+      "groessen": [
+        "2",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
       "maße": {
-        "brust": [[53, 53], [58.5, 58.5], [63.5, 63.5], [67, 67], [71, 71], [76, 76], [80, 80], [82.5, 82.5]],
-        "nackenHandgelenk": [[45.5, 45.5], [49.5, 49.5], [52, 52], [56, 56], [61, 61], [66, 66], [68.5, 68.5], [71, 71]],
-        "rueckenlaengeTaille": [[21.5, 21.5], [24, 24], [26.5, 26.5], [31.5, 31.5], [35.5, 35.5], [38, 38], [39.5, 39.5], [40.5, 40.5]],
-        "schulterbreite": [[23.5, 23.5], [25, 25], [26, 26], [27, 27], [28.5, 28.5], [30.5, 30.5], [31, 31], [33, 33]],
-        "armlaenge": [[21.5, 21.5], [26.5, 26.5], [29, 29], [31.5, 31.5], [34.5, 34.5], [38, 38], [40.5, 40.5], [42, 42]],
-        "oberarm": [[17.5, 17.5], [19, 19], [20.5, 20.5], [21.5, 21.5], [22, 22], [23, 23], [23.5, 23.5], [24, 24]],
-        "armlochtiefe": [[10.5, 10.5], [12, 12], [12.5, 12.5], [14, 14], [15.5, 15.5], [16.5, 16.5], [17.5, 17.5], [19, 19]],
-        "taille": [[53.5, 53.5], [54.5, 54.5], [57, 57], [59.5, 59.5], [62, 62], [63.5, 63.5], [67.5, 67.5], [69.5, 69.5]],
-        "huefte": [[56, 56], [59.5, 59.5], [63.5, 63.5], [71, 71], [75, 75], [80, 80], [83.5, 83.5], [90, 90]]
+        "brust": [
+          [
+            53,
+            53
+          ],
+          [
+            58.5,
+            58.5
+          ],
+          [
+            63.5,
+            63.5
+          ],
+          [
+            67,
+            67
+          ],
+          [
+            71,
+            71
+          ],
+          [
+            76,
+            76
+          ],
+          [
+            80,
+            80
+          ],
+          [
+            82.5,
+            82.5
+          ]
+        ],
+        "nackenHandgelenk": [
+          [
+            45.5,
+            45.5
+          ],
+          [
+            49.5,
+            49.5
+          ],
+          [
+            52,
+            52
+          ],
+          [
+            56,
+            56
+          ],
+          [
+            61,
+            61
+          ],
+          [
+            66,
+            66
+          ],
+          [
+            68.5,
+            68.5
+          ],
+          [
+            71,
+            71
+          ]
+        ],
+        "rueckenlaengeTaille": [
+          [
+            21.5,
+            21.5
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            26.5,
+            26.5
+          ],
+          [
+            31.5,
+            31.5
+          ],
+          [
+            35.5,
+            35.5
+          ],
+          [
+            38,
+            38
+          ],
+          [
+            39.5,
+            39.5
+          ],
+          [
+            40.5,
+            40.5
+          ]
+        ],
+        "schulterbreite": [
+          [
+            23.5,
+            23.5
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28.5,
+            28.5
+          ],
+          [
+            30.5,
+            30.5
+          ],
+          [
+            31,
+            31
+          ],
+          [
+            33,
+            33
+          ]
+        ],
+        "armlaenge": [
+          [
+            21.5,
+            21.5
+          ],
+          [
+            26.5,
+            26.5
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            31.5,
+            31.5
+          ],
+          [
+            34.5,
+            34.5
+          ],
+          [
+            38,
+            38
+          ],
+          [
+            40.5,
+            40.5
+          ],
+          [
+            42,
+            42
+          ]
+        ],
+        "oberarm": [
+          [
+            17.5,
+            17.5
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20.5,
+            20.5
+          ],
+          [
+            21.5,
+            21.5
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            23.5,
+            23.5
+          ],
+          [
+            24,
+            24
+          ]
+        ],
+        "armlochtiefe": [
+          [
+            10.5,
+            10.5
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            12.5,
+            12.5
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15.5,
+            15.5
+          ],
+          [
+            16.5,
+            16.5
+          ],
+          [
+            17.5,
+            17.5
+          ],
+          [
+            19,
+            19
+          ]
+        ],
+        "taille": [
+          [
+            53.5,
+            53.5
+          ],
+          [
+            54.5,
+            54.5
+          ],
+          [
+            57,
+            57
+          ],
+          [
+            59.5,
+            59.5
+          ],
+          [
+            62,
+            62
+          ],
+          [
+            63.5,
+            63.5
+          ],
+          [
+            67.5,
+            67.5
+          ],
+          [
+            69.5,
+            69.5
+          ]
+        ],
+        "huefte": [
+          [
+            56,
+            56
+          ],
+          [
+            59.5,
+            59.5
+          ],
+          [
+            63.5,
+            63.5
+          ],
+          [
+            71,
+            71
+          ],
+          [
+            75,
+            75
+          ],
+          [
+            80,
+            80
+          ],
+          [
+            83.5,
+            83.5
+          ],
+          [
+            90,
+            90
+          ]
+        ]
       },
-      "unsicherheiten": ["Babygrößen fehlen (eigene CYC-Seite, nicht ausgelesen)."]
+      "unsicherheiten": [
+        "Babygrößen fehlen (eigene CYC-Seite, nicht ausgelesen)."
+      ]
+    },
+    "deutsch": {
+      "name": "Deutsche Konfektionsgrößen (Damen, Normalgrößen)",
+      "groessen": [
+        "32",
+        "34",
+        "36",
+        "38",
+        "40",
+        "42",
+        "44",
+        "46",
+        "48",
+        "50",
+        "52",
+        "54"
+      ],
+      "maße": {
+        "brust": [
+          [
+            74,
+            77
+          ],
+          [
+            78,
+            81
+          ],
+          [
+            82,
+            85
+          ],
+          [
+            86,
+            89
+          ],
+          [
+            90,
+            93
+          ],
+          [
+            94,
+            97
+          ],
+          [
+            98,
+            101
+          ],
+          [
+            102,
+            106
+          ],
+          [
+            107,
+            112
+          ],
+          [
+            113,
+            118
+          ],
+          [
+            119,
+            124
+          ],
+          [
+            125,
+            131
+          ]
+        ],
+        "taille": [
+          [
+            61,
+            63
+          ],
+          [
+            62,
+            64
+          ],
+          [
+            65,
+            67
+          ],
+          [
+            68,
+            71
+          ],
+          [
+            72,
+            75
+          ],
+          [
+            76,
+            79
+          ],
+          [
+            80,
+            84
+          ],
+          [
+            85,
+            89
+          ],
+          [
+            90,
+            94
+          ],
+          [
+            95,
+            99
+          ],
+          [
+            100,
+            104
+          ],
+          [
+            105,
+            109
+          ]
+        ],
+        "huefte": [
+          [
+            83,
+            85
+          ],
+          [
+            86,
+            89
+          ],
+          [
+            93,
+            96
+          ],
+          [
+            97,
+            100
+          ],
+          [
+            101,
+            104
+          ],
+          [
+            105,
+            107
+          ],
+          [
+            108,
+            112
+          ],
+          [
+            113,
+            117
+          ],
+          [
+            118,
+            122
+          ],
+          [
+            123,
+            127
+          ],
+          [
+            128,
+            132
+          ],
+          [
+            133,
+            137
+          ]
+        ],
+        "nackenHandgelenk": [
+          [
+            67.5,
+            67.5
+          ],
+          [
+            68.5,
+            68.5
+          ],
+          [
+            69.0,
+            69.0
+          ],
+          [
+            70.0,
+            70.0
+          ],
+          [
+            71.0,
+            71.0
+          ],
+          [
+            72.0,
+            72.0
+          ],
+          [
+            73.0,
+            73.0
+          ],
+          [
+            74.0,
+            74.0
+          ],
+          [
+            74.0,
+            74.0
+          ],
+          [
+            74.5,
+            74.5
+          ],
+          [
+            76.0,
+            76.0
+          ],
+          [
+            77.5,
+            77.5
+          ]
+        ],
+        "rueckenlaengeTaille": [
+          [
+            42.0,
+            42.0
+          ],
+          [
+            42.5,
+            42.5
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            43.5,
+            43.5
+          ],
+          [
+            43.5,
+            43.5
+          ],
+          [
+            44.0,
+            44.0
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45.0,
+            45.0
+          ],
+          [
+            45.0,
+            45.0
+          ],
+          [
+            45.5,
+            45.5
+          ],
+          [
+            45.5,
+            45.5
+          ]
+        ],
+        "schulterbreite": [
+          [
+            36.5,
+            36.5
+          ],
+          [
+            37.0,
+            37.0
+          ],
+          [
+            37.5,
+            37.5
+          ],
+          [
+            38.5,
+            38.5
+          ],
+          [
+            39.5,
+            39.5
+          ],
+          [
+            40.5,
+            40.5
+          ],
+          [
+            41.5,
+            41.5
+          ],
+          [
+            42.5,
+            42.5
+          ],
+          [
+            43.5,
+            43.5
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45.0,
+            45.0
+          ],
+          [
+            45.5,
+            45.5
+          ]
+        ],
+        "armlaenge": [
+          [
+            42.0,
+            42.0
+          ],
+          [
+            42.5,
+            42.5
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            43.0,
+            43.0
+          ],
+          [
+            44.0,
+            44.0
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            44.5,
+            44.5
+          ],
+          [
+            45.0,
+            45.0
+          ],
+          [
+            45.5,
+            45.5
+          ]
+        ],
+        "oberarm": [
+          [
+            25.0,
+            25.0
+          ],
+          [
+            25.5,
+            25.5
+          ],
+          [
+            26.0,
+            26.0
+          ],
+          [
+            27.0,
+            27.0
+          ],
+          [
+            27.5,
+            27.5
+          ],
+          [
+            28.5,
+            28.5
+          ],
+          [
+            29.5,
+            29.5
+          ],
+          [
+            30.5,
+            30.5
+          ],
+          [
+            32.5,
+            32.5
+          ],
+          [
+            35.0,
+            35.0
+          ],
+          [
+            38.0,
+            38.0
+          ],
+          [
+            40.5,
+            40.5
+          ]
+        ],
+        "armlochtiefe": [
+          [
+            16.0,
+            16.0
+          ],
+          [
+            16.5,
+            16.5
+          ],
+          [
+            17.0,
+            17.0
+          ],
+          [
+            17.5,
+            17.5
+          ],
+          [
+            18.0,
+            18.0
+          ],
+          [
+            18.5,
+            18.5
+          ],
+          [
+            19.0,
+            19.0
+          ],
+          [
+            20.0,
+            20.0
+          ],
+          [
+            20.5,
+            20.5
+          ],
+          [
+            21.0,
+            21.0
+          ],
+          [
+            22.0,
+            22.0
+          ],
+          [
+            22.5,
+            22.5
+          ]
+        ]
+      },
+      "quellen": {
+        "brust, taille, huefte": "Zalando Lounge Größenberater Damen-Oberbekleidung (abgerufen 2026-11-02)",
+        "übrige": "abgeleitet: lineare Interpolation der CYC-Damentabelle über den Brustumfang"
+      },
+      "abgeleitet": [
+        "nackenHandgelenk",
+        "rueckenlaengeTaille",
+        "schulterbreite",
+        "armlaenge",
+        "oberarm",
+        "armlochtiefe"
+      ],
+      "unsicherheiten": [
+        "Konfektionsgrößen sind in Deutschland nicht genormt; Hersteller weichen um 1–4 cm ab (Bergzeit, Blitzrechner, kleidergroesse.de).",
+        "Oberarm, Armlochtiefe, Rückenlänge, Armlänge und Schulterbreite sind aus der US-Tabelle des CYC über den Brustumfang abgeleitet, nicht in Deutschland gemessen.",
+        "Normalgrößen gelten für ca. 164–172 cm Körpergröße (Blitzrechner); bei anderer Größe eigene Längenmaße eintragen."
+      ]
     }
   },
   "laengen": {
     "_hinweis": "Länge ab Nacken, abgeleitet aus Rückenlänge bis Taille (CYC).",
-    "damen": { "taille": 0, "huefte": 15, "tunika": 28 },
-    "kinder": { "taille": 0, "huefte": 5, "tunika": 15 },
-    "herren": { "_hinweis": "Herrenlänge liegt meist nur 2,5–5 cm über/unter der Rückenlänge bis Hüfte.", "abweichung": { "min": -5, "max": 5 } },
-    "crop": { "_hinweis": "Kein CYC-Wert. Eigener Vorschlag: Taillenlänge minus 5 cm.", "unsicher": true, "damen": -5 }
+    "damen": {
+      "taille": 0,
+      "huefte": 15,
+      "tunika": 28
+    },
+    "kinder": {
+      "taille": 0,
+      "huefte": 5,
+      "tunika": 15
+    },
+    "herren": {
+      "_hinweis": "Herrenlänge liegt meist nur 2,5–5 cm über/unter der Rückenlänge bis Hüfte.",
+      "abweichung": {
+        "min": -5,
+        "max": 5
+      }
+    },
+    "crop": {
+      "_hinweis": "Kein CYC-Wert. Eigener Vorschlag: Taillenlänge minus 5 cm.",
+      "unsicher": true,
+      "damen": -5
+    }
   },
   "plausibilitaet": {
     "_hinweis": "Eigene Prüfregeln für eingegebene Maße.",
     "regeln": [
-      { "id": "oberarm-brust", "bedingung": "oberarm < brust * 0.5", "meldung": "Oberarm ist ungewöhnlich groß im Verhältnis zur Brust. Bitte nachmessen." },
-      { "id": "taille-huefte", "bedingung": "taille <= huefte + 10", "meldung": "Taille ist deutlich größer als Hüfte. Bitte nachmessen." },
-      { "id": "schulter-brust", "bedingung": "schulterbreite < brust / 2", "meldung": "Schulterbreite ist größer als die halbe Brust. Bitte prüfen, ob hinten gemessen wurde." },
-      { "id": "armloch", "bedingung": "armlochtiefe >= 10 && armlochtiefe <= 30", "meldung": "Armlochtiefe liegt außerhalb von 10–30 cm." }
+      {
+        "id": "oberarm-brust",
+        "bedingung": "oberarm < brust * 0.5",
+        "meldung": "Oberarm ist ungewöhnlich groß im Verhältnis zur Brust. Bitte nachmessen."
+      },
+      {
+        "id": "taille-huefte",
+        "bedingung": "taille <= huefte + 10",
+        "meldung": "Taille ist deutlich größer als Hüfte. Bitte nachmessen."
+      },
+      {
+        "id": "schulter-brust",
+        "bedingung": "schulterbreite < brust / 2",
+        "meldung": "Schulterbreite ist größer als die halbe Brust. Bitte prüfen, ob hinten gemessen wurde."
+      },
+      {
+        "id": "armloch",
+        "bedingung": "armlochtiefe >= 10 && armlochtiefe <= 30",
+        "meldung": "Armlochtiefe liegt außerhalb von 10–30 cm."
+      }
     ]
   }
 }

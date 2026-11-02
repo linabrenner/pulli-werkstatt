@@ -36,7 +36,7 @@ function neuesProjekt() {
     auswahl: {},
     konstruktion: "raglan",
     faser: "wolle",
-    groesse: { modus: "standard", tabelle: "damen", groesse: "M", masse: { ...standardMasse(D, "damen", "M"), handgelenk: 16 } },
+    groesse: { modus: "standard", tabelle: "deutsch", groesse: "38", masse: { ...standardMasse(D, "deutsch", "38"), handgelenk: 16 } },
     probe: {},
     nadelMm: null,
     nackenerhoehung: null,
@@ -96,9 +96,9 @@ function fehlendeMasse(p) {
 function berechne(p) {
   const pr = probe(p);
   return berechneRaglan(D, {
-    masse: p.groesse.masse, tabelle: "damen", passform: passform(p), laenge: p.auswahl.laenge || "huefte",
+    masse: p.groesse.masse, tabelle: p.groesse.tabelle || "damen", passform: passform(p), laenge: p.auswahl.laenge || "huefte",
     maschenprobe: pr, nadelMm: p.nadelMm || nadelVorschlag(p), garnklasse: garnklasse(p), nackenerhoehung: nackenerhoehung(p),
-    probeGewicht10cm: p.probe.gewicht, lauflaenge100g: p.probe.lauflaenge,
+    probeGewicht10cm: p.probe.gewicht, lauflaenge100g: p.probe.lauflaenge50 ? p.probe.lauflaenge50 * 2 : p.probe.lauflaenge,
   });
 }
 /** Strick-Reihenfolge: Ärmelschritte werden für den zweiten Ärmel wiederholt. */
@@ -214,16 +214,20 @@ function seiteSchnitt(p) {
 
 function seiteGroesse(p) {
   const g = p.groesse;
-  const tab = D.groessen.tabellen.damen;
+  const tabId = g.tabelle || "damen";
+  const tab = D.groessen.tabellen[tabId];
+  const tabellen = [["deutsch", "Deutsch 32–54"], ["damen", "USA XS–5X"]];
   const warn = masseWarnungen(D, g.masse);
   const fehlt = fehlendeMasse(p);
   const mp = (id) => finde(D.groessen.messpunkte, id);
   app.innerHTML = `${nav(p, "groesse")}<h1>Größe</h1>
     <div class="chips"><button class="chip" data-modus="standard" aria-pressed="${g.modus === "standard"}">Standardgröße</button>
     <button class="chip" data-modus="eigen" aria-pressed="${g.modus === "eigen"}">Meine Maße</button></div>
-    ${g.modus === "standard" ? `<div class="feld"><label for="gr">Damengröße (Craft Yarn Council)</label>
-      <select id="gr" data-feld="standardgroesse">${tab.groessen.map((x) => `<option ${x === g.groesse ? "selected" : ""}>${x}</option>`).join("")}</select>
-      <span class="leise">Körpermaße als Mittelwert der Tabelle. Unten kannst du einzelne Maße anpassen.</span></div>` :
+    ${g.modus === "standard" ? `<div class="zwei"><div class="feld"><label for="tab">Größensystem</label>
+      <select id="tab" data-feld="tabelle">${tabellen.map(([id, name]) => `<option value="${id}" ${id === tabId ? "selected" : ""}>${name}</option>`).join("")}</select></div>
+      <div class="feld"><label for="gr">Damengröße</label>
+      <select id="gr" data-feld="standardgroesse">${tab.groessen.map((x) => `<option ${x === g.groesse ? "selected" : ""}>${x}</option>`).join("")}</select></div></div>
+      <p class="leise">${tabId === "deutsch" ? "Brust, Taille und Hüfte aus einer deutschen Größentabelle, die übrigen Maße daraus abgeleitet. Größen sind in Deutschland nicht genormt, miss lieber nach." : "Körpermaße des Craft Yarn Council (USA), Mittelwert der Tabelle."} Unten kannst du einzelne Maße anpassen.</p>` :
       `<p class="leise">Miss am Körper, nicht am Pulli. Am besten misst eine zweite Person.</p>`}
     <div class="zwei">${MASSFELDER.map(([id, name]) => `<div class="feld"><label for="m-${id}">${name}${PFLICHT.includes(id) ? "" : " (optional)"}</label>
       <div class="einheit"><input id="m-${id}" inputmode="decimal" data-mass="${id}" value="${g.masse[id] ? zahl(g.masse[id]) : ""}"><span>cm</span></div></div>`).join("")}</div>
@@ -246,7 +250,10 @@ function seiteProbe(p) {
     const soll = gk.maschen10cm;
     if (soll.max && p.probe.m10 > soll.max * (1 + toleranz / 100)) rueck = hinweisBox("hinweis", "Deine Probe ist fester als üblich", `Nimm eine um ${D.details.maschenprobe.nadelwechselMm} mm dickere Nadel, oder die Werkstatt rechnet einfach mit deinen Werten.`);
     else if (soll.min && p.probe.m10 < soll.min * (1 - toleranz / 100)) rueck = hinweisBox("hinweis", "Deine Probe ist lockerer als üblich", `Nimm eine um ${D.details.maschenprobe.nadelwechselMm} mm dünnere Nadel, oder die Werkstatt rechnet einfach mit deinen Werten.`);
-    else rueck = hinweisBox("gut", null, `Passt zu Garnklasse ${gk.id} (${gk.name}).`);
+    else {
+      const drops = D.garne.dropsGarngruppen.gruppen.find((x) => p.probe.m10 >= x.maschen10cm[0] && p.probe.m10 <= x.maschen10cm[1]);
+      rueck = hinweisBox("gut", null, `Passt zu Garnklasse ${gk.id} (${gk.name})${drops ? `, bei DROPS Garngruppe ${drops.gruppe}` : ""}.`);
+    }
   }
   const feld = (id, name, wert, einheit, hilfe = "") => `<div class="feld"><label for="p-${id}">${name}</label>
     <div class="einheit"><input id="p-${id}" inputmode="decimal" data-probe="${id}" value="${wert ?? ""}"><span>${einheit}</span></div>${hilfe}</div>`;
@@ -262,7 +269,7 @@ function seiteProbe(p) {
     ${rueck}
     ${pr.geschaetzt ? hinweisBox("wichtig", "Ohne eigene Probe", `Die Werkstatt schätzt ${pr.m10} M × ${pr.r10} Rd aus der Garnklasse ${gk.id} (${gk.name}). Der Pulli kann damit deutlich zu groß oder zu klein werden.`) : ""}
     <h2>Für den Garnbedarf (optional)</h2>
-    <div class="zwei">${feld("gewicht", "Gewicht der 10 × 10-cm-Probe", p.probe.gewicht, "g")}${feld("lauflaenge", "Lauflänge", p.probe.lauflaenge, "m/100 g")}</div>
+    <div class="zwei">${feld("gewicht", "Gewicht der 10 × 10-cm-Probe", p.probe.gewicht, "g")}${feld("lauflaenge50", "Lauflänge laut Banderole", p.probe.lauflaenge50 ?? (p.probe.lauflaenge ? p.probe.lauflaenge / 2 : undefined), "m/50 g")}</div>
     ${weiterLeiste(p, "groesse", "anleitung", "Anleitung berechnen")}`;
 }
 
@@ -425,7 +432,13 @@ app.addEventListener("change", async (ev) => {
   else if (d.feld === "faser") p.faser = el.value;
   else if (d.feld === "nackenerhoehung") p.nackenerhoehung = el.checked;
   else if (d.feld === "nadelMm") p.nadelMm = Number(el.value);
-  else if (d.feld === "standardgroesse") { p.groesse.groesse = el.value; p.groesse.masse = { ...standardMasse(D, "damen", el.value), handgelenk: p.groesse.masse.handgelenk || 16 }; }
+  else if (d.feld === "standardgroesse") { p.groesse.groesse = el.value; p.groesse.masse = { ...standardMasse(D, p.groesse.tabelle || "damen", el.value), handgelenk: p.groesse.masse.handgelenk || 16 }; }
+  else if (d.feld === "tabelle") {
+    const t = D.groessen.tabellen[el.value];
+    p.groesse.tabelle = el.value;
+    p.groesse.groesse = t.groessen.includes(p.groesse.groesse) ? p.groesse.groesse : t.groessen[Math.floor(t.groessen.length / 2)];
+    p.groesse.masse = { ...standardMasse(D, el.value, p.groesse.groesse), handgelenk: p.groesse.masse.handgelenk || 16 };
+  }
   else if (d.mass) { p.groesse.masse[d.mass] = zahlAus(el.value); if (p.groesse.modus === "standard") p.groesse.modus = "eigen"; }
   else if (d.probe) p.probe[d.probe] = zahlAus(el.value);
   else if (d.notiz) { p.notizen[d.notiz] = el.value; sichern(); return; }

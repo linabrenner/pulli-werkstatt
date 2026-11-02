@@ -67,10 +67,19 @@
           "hinweis": "Halstiefe ≈ halbe Ärmel-Anschlagmaschen (in Maschen gezählt)."
         },
         "raglantiefe": {
-          "regel": "= Armlochtiefe (Körpermaß)",
-          "unsicher": true,
-          "herkunft": "startwert",
-          "hinweis": "Im Testpulli passt die Passe damit nur knapp; beim Anprobieren prüfen."
+          "regel": "Raglantiefe = Armlochtiefe + Schulterschräge + Zugabe in der Tiefe",
+          "schulterschraegeCm": {
+            "standard": 4,
+            "quelle": "Aimee Sher Makes (Suchauszug): ca. 1,6\" / 4 cm bei allen Größen ihrer Größentabelle"
+          },
+          "tiefenEaseCm": {
+            "standard": 1.5,
+            "unsicher": true,
+            "herkunft": "startwert",
+            "hinweis": "Wearing ease in der Tiefe; nicht beziffert gefunden."
+          },
+          "korrektur": "Bis 2026-11-01 galt Raglantiefe = Armlochtiefe; das war laut Recherche zu flach (ca. 5 cm).",
+          "vergleich": "Lana Grossa / Landlust 01/24 Pullover top down, Gr. 36/38: Passe laut Schnittzeichnung ca. 25 cm (lockere Passform)."
         }
       },
       "beziehungen": [
@@ -150,13 +159,14 @@
             7
           ],
           "koerperNachTeilung": 224,
-          "koerperGlattRunden": 90,
+          "koerperGlattRunden": 89,
           "saumMaschen": 224,
           "aermelOben": 75,
           "aermelUnten": 37,
           "aermelAbnahmen": "9 Rd gerade, 5x jede 6. Rd, 14x jede 5. Rd, 5 Rd gerade",
           "manschette": 34
-        }
+        },
+        "hinweis": "Rechnet mit der alten Regel Raglantiefe = Armlochtiefe (18,25 cm); im Test per raglantiefeCm vorgegeben. Dient als reine Rechenprüfung. Seit 2026-11-02 Halsbündchen 3 cm statt 2,5 cm, dadurch Körper 89 statt 90 Rd."
       }
     },
     {

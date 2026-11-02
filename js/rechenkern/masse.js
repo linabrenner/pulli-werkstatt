@@ -34,7 +34,13 @@ export function gesamtlaenge(daten, masse, laenge, tabelle = "damen") {
 }
 
 /** Fertigmaße = Körpermaße + Ease. */
-export function fertigmasse(daten, masse, { passform, laenge, tabelle }) {
+/** Raglantiefe = Armlochtiefe + Schulterschräge + Zugabe in der Tiefe (siehe konstruktionen.json). */
+export function raglantiefe(daten, masse) {
+  const p = daten.konstruktionen.konstruktionen.find((k) => k.id === "raglan").parameter.raglantiefe;
+  return masse.armlochtiefe + p.schulterschraegeCm.standard + p.tiefenEaseCm.standard;
+}
+
+export function fertigmasse(daten, masse, { passform, laenge, tabelle, raglantiefeCm }) {
   const pf = daten.ease.passformen.find((p) => p.id === passform);
   if (!pf) throw new Error(`Unbekannte Passform ${passform}`);
   const mp = daten.ease.messpunkte;
@@ -43,7 +49,7 @@ export function fertigmasse(daten, masse, { passform, laenge, tabelle }) {
     oberarm: masse.oberarm + mp.oberarm.standardCm,
     handgelenk: masse.handgelenk + mp.handgelenk.standardCm,
     laenge: gesamtlaenge(daten, masse, laenge, tabelle),
-    raglantiefe: masse.armlochtiefe,
+    raglantiefe: raglantiefeCm ?? raglantiefe(daten, masse),
     easeBrust: pf.standardCm,
   };
 }
