@@ -5,6 +5,7 @@ import { auswerten, empfohleneKonstruktionen } from "./regeln.js";
 import { standardMasse, masseWarnungen } from "./rechenkern/masse.js";
 import { berechneRaglan } from "./rechenkern/raglan.js";
 import { mitte, runden } from "./rechenkern/grundlagen.js";
+import { chatAnweisung, antwortAusText } from "./foto/erkennung.js";
 
 const app = document.getElementById("app");
 const dialog = document.getElementById("dialog");
@@ -57,6 +58,7 @@ function garnklasseAusProbe(m10) {
     - Math.abs(mitte({ min: b.maschen10cm.min ?? 0, max: b.maschen10cm.max }) - m10))[0].id;
 }
 function garnklasseVorschlag(p) {
+  if (Number.isInteger(p.fotoGarnklasse)) return p.fotoGarnklasse;
   const w = finde(finde(D.regeln.wunschEigenschaften, "waerme").optionen, p.auswahl.waerme);
   const liste = w ? w.garnklassen : [3, 4];
   return liste[Math.floor(liste.length / 2)];
@@ -175,11 +177,70 @@ function seiteStart() {
     <label class="knopf">Wiederherstellen<input type="file" accept="application/json" data-aktion="import" hidden></label></div></div>`;
 }
 
+// ---------- Foto über den Claude-Chat ----------
+const wunschName = (id, wert) => finde(finde(D.regeln.wunschEigenschaften, id)?.optionen ?? [], wert)?.name;
+const FOTO_NAMEN = {
+  teil: { pullover: "Pullover", strickjacke: "Strickjacke", weste: "Weste", anderes: "anderes Teil" },
+  buendchen: { rippen1x1: "1×1-Rippen", rippen2x2: "2×2-Rippen", rollrand: "Rollrand", krausRechts: "kraus rechts", keins: "keine Bündchen", unklar: "nicht zu erkennen" },
+};
+const FOTO_FELDER = [["teil", "Teil"], ["konstruktion", "Schnitt"], ["kragen", "Ausschnitt"], ["aermel", "Ärmel"], ["laenge", "Länge"], ["sitz", "Sitz"], ["musterOrt", "Muster wo"], ["musterArt", "Muster"], ["buendchen", "Bündchen"]];
+function fotoWertName(feld, wert) {
+  if (FOTO_NAMEN[feld]?.[wert]) return FOTO_NAMEN[feld][wert];
+  if (feld === "konstruktion") return finde(D.konstruktionen.konstruktionen, wert)?.name ?? "nicht zu erkennen";
+  if (wert === "keins") return "kein Muster";
+  if (wert === "andere") return "anderer Ausschnitt";
+  return wunschName(feld, wert) ?? wert;
+}
+function fotoKarte(p) {
+  const f = p.foto || {};
+  if (f.ergebnis && !f.uebernommen) {
+    const e = f.ergebnis;
+    const k = e.konstruktion && finde(D.konstruktionen.konstruktionen, e.konstruktion.wert);
+    const zeilen = FOTO_FELDER.filter(([id]) => e[id]).map(([id, name]) => `<tr><td>${name}</td><td>${esc(fotoWertName(id, e[id].wert))}
+      <span class="marke-klein ${e[id].sicherheit === "sicher" ? "empf" : e[id].sicherheit === "unsicher" ? "unsicher" : "spaeter"}">${esc(e[id].sicherheit)}</span></td></tr>`).join("");
+    const g = e.garnklasse ? `<tr><td>Garn</td><td>Garnklasse ${e.garnklasse.von === e.garnklasse.bis ? e.garnklasse.von : `${e.garnklasse.von}–${e.garnklasse.bis}`}
+      <span class="marke-klein ${e.garnklasse.sicherheit === "sicher" ? "empf" : "unsicher"}">${esc(e.garnklasse.sicherheit)}</span></td></tr>` : "";
+    return `<div class="karte foto-ergebnis"><h2>Das sieht Claude auf dem Foto</h2>
+      ${e.kurzbeschreibung ? `<p>${esc(e.kurzbeschreibung)}</p>` : ""}
+      <table class="tabelle tabelle-links">${zeilen}${g}</table>
+      ${e.teil && e.teil.wert !== "pullover" ? hinweisBox("hinweis", null, `Erkannt wurde: ${fotoWertName("teil", e.teil.wert)}. Die Werkstatt rechnet bisher nur Pullover. Die Merkmale werden trotzdem übernommen.`) : ""}
+      ${k && k.status !== "mvp" ? hinweisBox("hinweis", null, `${k.name} kann die Werkstatt noch nicht rechnen. Vorerst bleibt es beim Raglan, die übrigen Merkmale passen trotzdem.`) : ""}
+      ${e.nichtErkennbar?.length ? `<p class="leise"><b>Nicht auf dem Foto zu sehen:</b> ${e.nichtErkennbar.map(esc).join(", ")}</p>` : ""}
+      ${(f.hinweise || []).map((h) => hinweisBox("info", null, h)).join("")}
+      <div class="leiste"><button class="knopf" data-aktion="foto-verwerfen">Verwerfen</button><button class="knopf primaer" data-aktion="foto-uebernehmen">In meine Auswahl übernehmen</button></div></div>`;
+  }
+  return `<details class="karte foto" ${f.offen ? "open" : ""} data-aktion="foto-details"><summary>Mit einem Foto starten</summary>
+    <p class="leise">Kostenlos über deinen Claude-Chat. Das Foto geht dabei an Claude, nicht an die Werkstatt.</p>
+    <ol class="foto-schritte">
+      <li><button class="knopf" data-aktion="foto-kopieren">Anweisung kopieren</button></li>
+      <li>Im Claude-Chat das Foto anhängen und die Anweisung einfügen. <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude öffnen</a></li>
+      <li>Claudes ganze Antwort kopieren und hier einfügen:
+        <textarea id="foto-antwort" placeholder="Antwort aus dem Chat einfügen">${esc(f.text || "")}</textarea>
+        <button class="knopf primaer" data-aktion="foto-auswerten">Antwort auswerten</button></li>
+    </ol>
+    ${f.fehler ? hinweisBox("wichtig", null, f.fehler) : ""}
+    ${f.uebernommen ? hinweisBox("gut", null, "Die Merkmale vom letzten Foto sind übernommen. Du kannst unten alles ändern.") : ""}
+    <details><summary>Anweisung anzeigen</summary><textarea readonly rows="6">${esc(chatAnweisung(D))}</textarea></details></details>`;
+}
+function fotoUebernehmen(p) {
+  const e = p.foto.ergebnis;
+  const a = p.auswahl;
+  const optionen = (id) => finde(D.regeln.wunschEigenschaften, id).optionen.map((o) => o.id);
+  for (const id of ["sitz", "laenge", "kragen", "aermel", "musterOrt"]) if (e[id] && optionen(id).includes(e[id].wert)) a[id] = e[id].wert;
+  if (e.musterArt?.wert === "keins") { a.musterOrt = "nirgends"; a.musterArt = undefined; }
+  else if (e.musterArt && optionen("musterArt").includes(e.musterArt.wert)) a.musterArt = e.musterArt.wert;
+  const k = e.konstruktion && finde(D.konstruktionen.konstruktionen, e.konstruktion.wert);
+  if (k?.status === "mvp") p.konstruktion = k.id;
+  if (e.garnklasse) p.fotoGarnklasse = Math.round((e.garnklasse.von + e.garnklasse.bis) / 2);
+  p.foto = { uebernommen: true, offen: true };
+}
+
 function seiteIdee(p) {
   const erg = auswerten(D.regeln, kontext(p));
   const empf = empfohleneKonstruktionen(erg.vorschlaege);
   const fragen = D.regeln.wunschEigenschaften.filter((w) => !(w.nurWenn && (!p.auswahl.musterOrt || p.auswahl.musterOrt === "nirgends")));
   app.innerHTML = `${nav(p, "idee")}<h1>Deine Idee</h1>
+    ${fotoKarte(p)}
     <div class="feld"><label for="name">Name</label><input id="name" data-feld="name" value="${esc(p.name)}"></div>
     ${fragen.map((w) => `<div class="frage">${esc(w.frage)}</div><div class="chips">${w.optionen.map((o) =>
       `<button class="chip" data-wunsch="${w.id}" data-wert="${o.id}" aria-pressed="${p.auswahl[w.id] === o.id}">${esc(o.name)}</button>`).join("")}</div>`).join("")}
@@ -398,7 +459,19 @@ app.addEventListener("click", (ev) => {
   if (d.aktion === "neu") { const n = neuesProjekt(); location.hash = `#/p/${n.id}/idee`; return; }
   if (d.aktion === "export") return exportieren(stand);
   if (!p) return;
-  if (d.wunsch) { p.auswahl[d.wunsch] = p.auswahl[d.wunsch] === d.wert ? undefined : d.wert; if (d.wunsch === "musterOrt" && d.wert === "nirgends") p.auswahl.musterArt = undefined; }
+  if (d.aktion === "foto-kopieren") {
+    const text = chatAnweisung(D);
+    const fertig = () => { el.textContent = "Kopiert ✓"; };
+    navigator.clipboard?.writeText(text).then(fertig, () => { el.textContent = "Bitte unten „Anweisung anzeigen“ nutzen"; }) ?? (el.textContent = "Bitte unten „Anweisung anzeigen“ nutzen");
+    return;
+  }
+  if (d.aktion === "foto-auswerten") {
+    const text = document.getElementById("foto-antwort").value;
+    const { ergebnis, hinweise, fehler } = antwortAusText(D, text);
+    p.foto = fehler ? { offen: true, fehler, text } : { ergebnis, hinweise, offen: true };
+  } else if (d.aktion === "foto-uebernehmen") fotoUebernehmen(p);
+  else if (d.aktion === "foto-verwerfen") p.foto = { offen: true };
+  else if (d.wunsch) { p.auswahl[d.wunsch] = p.auswahl[d.wunsch] === d.wert ? undefined : d.wert; if (d.wunsch === "musterOrt" && d.wert === "nirgends") p.auswahl.musterArt = undefined; }
   else if (d.konstruktion) p.konstruktion = d.konstruktion;
   else if (d.modus) { p.groesse.modus = d.modus; }
   else if (d.zaehl) { tick = d.zaehl === "1"; const s = strickfolge(berechne(p))[p.fortschritt.schritt]; p.fortschritt.zaehler[s.id] = Math.max(0, (p.fortschritt.zaehler[s.id] || 0) + Number(d.zaehl)); }
@@ -446,6 +519,10 @@ app.addEventListener("change", async (ev) => {
   sichern(); route();
 });
 
+app.addEventListener("toggle", (ev) => {
+  const p = aktuellesProjekt();
+  if (p && ev.target.matches?.("details.foto")) { p.foto = { ...(p.foto || {}), offen: ev.target.open }; sichern(); }
+}, true);
 window.addEventListener("hashchange", route);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && location.hash.endsWith("/stricken")) bildschirmAn(); });
 

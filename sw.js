@@ -1,10 +1,10 @@
 // Offline-Betrieb: alle App-Dateien beim ersten Öffnen zwischenspeichern.
 // Bei jeder neuen Version VERSION hochzählen, dann holt sich die App beim nächsten Öffnen die neuen Dateien.
-const VERSION = "v3";
+const VERSION = "v4";
 const DATEIEN = [
   "./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "css/app.css",
   "js/app.js", "js/daten.js", "js/speicher.js", "js/regeln.js",
-  "js/rechenkern/grundlagen.js", "js/rechenkern/masse.js", "js/rechenkern/raglan.js",
+  "js/rechenkern/grundlagen.js", "js/rechenkern/masse.js", "js/rechenkern/raglan.js", "js/foto/erkennung.js",
   ...["garne", "nadeln", "groessen", "ease", "konstruktionen", "details", "muster", "techniken", "abkuerzungen", "regeln"].map((d) => `daten/${d}.json`),
 ];
 

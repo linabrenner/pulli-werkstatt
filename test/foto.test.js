@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
-import { antwortSchema, anfrage, auswerten, kosten, systemAnweisung } from "../js/foto/erkennung.js";
+import { antwortSchema, anfrage, auswerten, kosten, systemAnweisung, chatAnweisung, antwortAusText } from "../js/foto/erkennung.js";
 
 const ordner = new URL("../daten/", import.meta.url);
 const daten = Object.fromEntries(
@@ -55,4 +55,35 @@ test("Auswertung: Ablehnung, abgeschnittene und gültige Antwort", () => {
     content: [{ type: "thinking", thinking: "" }, { type: "text", text: '{"teil":{"wert":"pullover","sicherheit":"sicher"}}' }] });
   assert.equal(ok.ergebnis.teil.wert, "pullover");
   assert.equal(kosten(ok.usage).toFixed(3), "0.036");
+});
+
+test("Chat-Anweisung nennt alle erlaubten Werte und den Antwortaufbau", () => {
+  const t = chatAnweisung(daten);
+  for (const w of ["raglan", "rollkragen", "oversized", "zopf", "rippen2x2", "```json"]) assert.ok(t.includes(w), w);
+});
+
+test("Chat-Antwort: Codeblock mit Text drumherum wird gelesen, Unbekanntes ignoriert", () => {
+  const antwort = `Hier ist die Auswertung:
+\`\`\`json
+{"teil":{"wert":"pullover","sicherheit":"sicher"},"konstruktion":{"wert":"raglan","sicherheit":"ziemlich sicher"},
+ "kragen":{"wert":"rollkragen","sicherheit":"sicher"},"sitz":{"wert":"riesig","sicherheit":"sicher"},
+ "musterArt":{"wert":"zopf","sicherheit":"total"},"garnklasse":{"von":4,"bis":5,"sicherheit":"unsicher"},
+ "nichtErkennbar":["Maschenprobe"],"kurzbeschreibung":"Weiter Zopfpulli mit Rollkragen."}
+\`\`\`
+Viel Spaß beim Stricken!`;
+  const { ergebnis, hinweise, fehler } = antwortAusText(daten, antwort);
+  assert.equal(fehler, undefined);
+  assert.equal(ergebnis.konstruktion.wert, "raglan");
+  assert.equal(ergebnis.kragen.wert, "rollkragen");
+  assert.ok(!("sitz" in ergebnis));
+  assert.equal(ergebnis.musterArt.sicherheit, "unsicher");
+  assert.deepEqual(ergebnis.garnklasse, { von: 4, bis: 5, sicherheit: "unsicher" });
+  assert.equal(hinweise.length, 1);
+});
+
+test("Chat-Antwort: leer, kaputt oder ohne bekannte Merkmale gibt eine verständliche Meldung", () => {
+  assert.ok(antwortAusText(daten, "").fehler);
+  assert.ok(antwortAusText(daten, "Ich sehe einen Pulli.").fehler);
+  assert.ok(antwortAusText(daten, '{"farbe":"blau"}').fehler);
+  assert.ok(antwortAusText(daten, '{"kragen":{"wert":"vAusschnitt","sicherheit":"sicher"}}').ergebnis);
 });

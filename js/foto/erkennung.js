@@ -107,3 +107,62 @@ export function kosten(usage, modell = MODELL) {
   const preise = { "claude-opus-5-5": [4, 20], "claude-haiku-5-5": [0.1, 0.5], "claude-sonnet-5-5": [2, 10] }[modell] ?? [4, 20];
   return ((usage.input_tokens ?? 0) * preise[0] + (usage.output_tokens ?? 0) * preise[1]) / 1e6;
 }
+
+// ---------- Chat-Weg: Anweisung zum Kopieren, Antwort zum Einfügen (kostenlos, ohne API-Schlüssel) ----------
+
+const FELDER = ["teil", "konstruktion", "kragen", "aermel", "laenge", "sitz", "musterOrt", "musterArt", "buendchen"];
+
+/** Anweisung, die man zusammen mit dem Foto in den Claude-Chat einfügt. */
+export function chatAnweisung(daten) {
+  const s = antwortSchema(daten).properties;
+  const werte = FELDER.map((f) => `- ${f}: ${s[f].properties.wert.enum.join(", ")}`).join("\n");
+  const beispiel = {
+    ...Object.fromEntries(FELDER.map((f) => [f, { wert: s[f].properties.wert.enum[0], sicherheit: "sicher" }])),
+    garnklasse: { von: 3, bis: 4, sicherheit: "unsicher" },
+    nichtErkennbar: ["…"],
+    kurzbeschreibung: "…",
+  };
+  return `${systemAnweisung(daten)}
+
+Erlaubte Werte je Feld:
+${werte}
+- sicherheit: ${SICHERHEIT.join(", ")}
+- garnklasse: von und bis jeweils 0–7
+
+Antworte nur mit einem JSON-Codeblock in genau diesem Aufbau, ohne weiteren Text:
+\`\`\`json
+${JSON.stringify(beispiel, null, 2)}
+\`\`\`
+
+Bestimme jetzt die Merkmale des Kleidungsstücks auf dem angehängten Foto.`;
+}
+
+/**
+ * Eingefügte Chat-Antwort lesen und gegen die erlaubten Werte prüfen.
+ * Unbekannte oder fehlende Werte werden weggelassen und als Hinweis gemeldet, statt alles abzulehnen.
+ */
+export function antwortAusText(daten, text) {
+  const roh = String(text ?? "").trim();
+  if (!roh) return { fehler: "Es wurde nichts eingefügt." };
+  const block = roh.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const kandidat = block ? block[1] : roh.slice(roh.indexOf("{"), roh.lastIndexOf("}") + 1);
+  let obj;
+  try { obj = JSON.parse(kandidat); } catch { return { fehler: "Das sieht nicht wie die Antwort aus dem Chat aus. Kopiere die ganze Antwort von Claude und füge sie hier ein." }; }
+  const s = antwortSchema(daten).properties;
+  const ergebnis = {};
+  const hinweise = [];
+  for (const f of FELDER) {
+    const v = obj?.[f];
+    if (v && s[f].properties.wert.enum.includes(v.wert)) {
+      ergebnis[f] = { wert: v.wert, sicherheit: SICHERHEIT.includes(v.sicherheit) ? v.sicherheit : "unsicher" };
+    } else if (v !== undefined) hinweise.push(`„${f}“ hatte einen unbekannten Wert und wird ignoriert.`);
+  }
+  const g = obj?.garnklasse;
+  if (g && Number.isInteger(g.von) && Number.isInteger(g.bis) && g.von >= 0 && g.bis <= 7 && g.von <= g.bis) {
+    ergebnis.garnklasse = { von: g.von, bis: g.bis, sicherheit: SICHERHEIT.includes(g.sicherheit) ? g.sicherheit : "unsicher" };
+  }
+  ergebnis.nichtErkennbar = Array.isArray(obj?.nichtErkennbar) ? obj.nichtErkennbar.filter((x) => typeof x === "string" && x !== "…").slice(0, 8) : [];
+  ergebnis.kurzbeschreibung = typeof obj?.kurzbeschreibung === "string" && obj.kurzbeschreibung !== "…" ? obj.kurzbeschreibung : "";
+  if (!FELDER.some((f) => f in ergebnis)) return { fehler: "In der Antwort war kein einziges bekanntes Merkmal. Bitte die Anweisung neu kopieren und noch einmal fragen." };
+  return { ergebnis, hinweise };
+}
