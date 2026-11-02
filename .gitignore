@@ -1,2 +1,5 @@
 node_modules/
 .DS_Store
+fotos-test/*
+!fotos-test/LIESMICH.md
+!fotos-test/antworten.beispiel.json

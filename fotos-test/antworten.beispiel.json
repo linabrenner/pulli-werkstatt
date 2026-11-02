@@ -1,0 +1,20 @@
+[
+  {
+    "datei": "mein-grauer-raglan.jpg",
+    "erwartet": {
+      "teil": "pullover",
+      "konstruktion": "raglan",
+      "kragen": "rundhals",
+      "aermel": "lang",
+      "laenge": "huefte",
+      "sitz": "klassisch",
+      "musterOrt": "nirgends",
+      "musterArt": "keins",
+      "buendchen": "rippen1x1"
+    }
+  },
+  {
+    "datei": "zopfpulli-katalog.jpg",
+    "erwartet": { "konstruktion": "dropShoulder", "kragen": "rollkragen", "musterOrt": "vorne", "musterArt": "zopf" }
+  }
+]
